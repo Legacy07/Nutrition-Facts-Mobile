@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/caloriesFragmentListViewProteinTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp"
+        android:text="Protein" />
+
+    <TextView
+        android:id="@+id/caloriesFragmentListViewProteinTotalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="200dp"
+        android:paddingTop="12dp"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/caloriesFragmentListProteinViewGoalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="250dp"
+        android:paddingTop="12dp"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/caloriesFragmentListViewProteinLeftTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="300dp"
+        android:paddingTop="12dp"
+        android:text="0"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

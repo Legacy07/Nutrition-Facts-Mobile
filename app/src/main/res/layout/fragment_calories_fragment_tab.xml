@@ -1,0 +1,436 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorControlHighlight"
+    android:orientation="vertical"
+    tools:context="com.turkishlegacy.nutritionfactsmobile.nutritionsummary_tabs.CaloriesFragmentTab">
+
+    <RelativeLayout
+        android:id="@+id/totalCaloriesLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/groupbox">
+
+
+        <TextView
+            android:id="@+id/totalCaloriesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameTextBox"
+            android:layout_marginTop="10dp"
+            android:text="Total Calories"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/totalCaloriesline"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/totalCaloriesTextView"
+            android:background="?attr/colorControlHighlight" />
+
+        <TextView
+            android:id="@+id/totalCalorieFiguresTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/goalCaloriesTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalCalorieFiguresTextView"
+            android:layout_marginTop="10dp"
+            android:text="Goal Calories"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/totalCaloriesLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/goalCaloriesTextview"
+            android:background="?attr/colorControlHighlight" />
+
+        <TextView
+            android:id="@+id/goalCaloriesFiguresTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalCalorieFiguresTextView"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/reaminingCaloriesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/goalCaloriesFiguresTextview"
+            android:layout_marginTop="10dp"
+            android:text="Remaining Calories"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/remainingCaloriesFiguresTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/goalCaloriesFiguresTextview"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/groupBoxbanner2Layout"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@id/totalCaloriesLayout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/banner_groupbox"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nutrients"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+             />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/caloriesLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupBoxbanner2Layout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/groupbox"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/totalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="180dp"
+            android:layout_marginTop="0dp"
+            android:text="Total"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/totalGoalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="230dp"
+            android:layout_marginTop="0dp"
+            android:text="Goal"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/totalLeftTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="0dp"
+            android:text="Left"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/proteinTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/calorieTextBox"
+            android:layout_marginTop="15dp"
+            android:text="Protein"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+
+        <TextView
+            android:id="@+id/proteinTotalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalTextView"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="0dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/proteinLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/proteinTotalTextView"
+            android:background="?attr/colorControlHighlight" />
+
+        <TextView
+            android:id="@+id/proteinGoalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalTextView"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="0dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/proteinLeftTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalTextView"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="0dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/carbTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/proteinLine"
+            android:layout_marginTop="10dp"
+            android:text="Carb"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/carbTotalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/proteinLine"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/carbGoalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/proteinLine"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/carbLeftTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/proteinLine"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/carbLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/carbTotalTextView"
+            android:background="?attr/colorControlHighlight" />
+
+        <TextView
+            android:id="@+id/fatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/carbLine"
+            android:layout_marginTop="10dp"
+            android:text="Fat"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/fatTotalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/carbLine"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/fatGoalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/carbLine"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/fatLeftTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/carbLine"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/groupBoxbanner3Layout"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@id/caloriesLayout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/banner_groupbox"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calorie Breakdown"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+             />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/calorieBreakdownLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupBoxbanner3Layout"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/groupbox"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/calorieBreakdownProteinTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameTextBox"
+            android:layout_marginTop="10dp"
+            android:text="Protein"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/proteinline"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/calorieBreakdownProteinTextView"
+            android:background="?attr/colorControlHighlight" />
+
+
+        <TextView
+            android:id="@+id/calorieBreakdownProteinFiguresTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="10dp"
+            android:text="%0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/calorieBreakdownCarbTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/calorieBreakdownProteinFiguresTextView"
+            android:layout_marginTop="10dp"
+            android:text="Carb"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/calorieBreakdownCarbFiguresTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/calorieBreakdownProteinFiguresTextView"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="10dp"
+            android:text="%0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/calorieBreakdownCarbLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/calorieBreakdownCarbFiguresTextView"
+            android:background="?attr/colorControlHighlight" />
+
+        <TextView
+            android:id="@+id/calorieBreakdownFatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/calorieBreakdownCarbFiguresTextView"
+            android:layout_marginTop="10dp"
+            android:text="Fat"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/calorieBreakdownFatFiguresTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/calorieBreakdownCarbFiguresTextView"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="10dp"
+            android:text="%0"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

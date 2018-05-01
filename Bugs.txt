@@ -1,0 +1,15 @@
+Bugs ----
+listview - cannot append the list view from food nutritions fragment into breakfast tab because it gets the data from dynamic getter from main 
+and second problem is that the breakfast tab fragment reloads itself every time i try to add food because i need to open a different fragment.
+
+
+Need to do ---
+-Once breakfast tab is done, do lunch dinner and sauces tab.
+-design the nutrition summary fragment which is gonna hold the total macros, calorie breakdown and the chart relative to it. RDI and calorie breakdown charts.
+-delete the current db then import the custom db and make an ability to backup the db 
+-customize home page
+-add appropriate loading screen
+-change navigation bar android logo to kcal 
+
+----
+create a game alike that has set of logical questions that can be done algoritmically to improve my skills in this topic and data structures also

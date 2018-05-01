@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorControlHighlight"
+    tools:context="com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.DinnerTab">
+
+    <RelativeLayout
+        android:id="@+id/groupBoxbannerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/banner_groupbox"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Add Food"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+             />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/groupBoxLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/groupbox"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:drawableLeft="@mipmap/add_food"
+            android:text=" Add Food"
+            android:textAllCaps="false"
+            android:textSize="25px"
+            android:typeface="serif" />
+
+        <ListView
+            android:id="@+id/dinnerListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addButton" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

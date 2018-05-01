@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Home"
+            android:icon="@drawable/home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_Diary"
+            android:icon="@drawable/meat"
+            android:title="Diary" />
+        <item
+            android:id="@+id/nav_NutritionSummary"
+            android:icon="@drawable/pie_chart"
+            android:title="Nutrition Summary" />
+        <item
+            android:id="@+id/nav_BMRCalculator"
+            android:icon="@drawable/ic_calculate_bmr"
+            android:title="Calculate BMR" />
+    </group>
+
+    <item android:title="Admin">
+        <menu>
+            <item
+                android:id="@+id/nav_AddFood"
+                android:icon="@drawable/add_event"
+                android:title="Add Food Type" />
+            <item
+                android:id="@+id/nav_ImportExport"
+                android:icon="@drawable/import_db"
+                android:title="Import/Export" />
+        </menu>
+    </item>
+
+</menu>
