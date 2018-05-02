@@ -6,10 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -27,7 +27,7 @@ public class BreakfastTab extends Fragment {
     //listview and arraylist declared
     ListView listViewLv;
     TabsCustomListViewAdaptor adaptor;
-    ArrayList<AllFoodsinTabs> allFoods = new ArrayList<>();
+    ArrayList<AllFoodsinTabs> allFoodsList = new ArrayList<>();
 
     public BreakfastTab() {
         // Required empty public constructor
@@ -44,7 +44,9 @@ public class BreakfastTab extends Fragment {
         AddBreakfast();
 
         listViewLv = (ListView) view.findViewById(R.id.listView);
-        adaptor = new TabsCustomListViewAdaptor(getActivity(), allFoods);
+        adaptor = new TabsCustomListViewAdaptor(getActivity(), allFoodsList);
+        listViewLv.setAdapter(adaptor);
+
         Main main = (Main) getActivity();
         String getname = main.getName();
         getAllFood();
@@ -68,8 +70,10 @@ public class BreakfastTab extends Fragment {
 
     }
 
+    //Look at this -- https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
+    //http://www.mkyong.com/android/android-listview-example/
     private void getAllFood() {
-        allFoods.clear();
+        allFoodsList.clear();
         Main main = (Main) getActivity();
 
         AllFoodsinTabs f = null;
@@ -85,16 +89,22 @@ public class BreakfastTab extends Fragment {
             String fat = main.getFat();
 
             f = new AllFoodsinTabs();
-            //once the values are gathered, its passed to setter methods.
-            f.setName(name);
-            f.setQuantity(quantity + " Grams");
-            f.setCalorie(calorie + " Calories");
-            f.setProtein(protein + " of Protein");
-            f.setCarb(carb + " of Carbs");
-            f.setFat(fat + " of Fat");
-            //add it to array list to hold the information
-            allFoods.add(f);
-            adaptor.notifyDataSetChanged();
+            if (name.equals("")) {
+            } else {
+                int index = 0;
+
+                //once the values are gathered, its passed to setter methods.
+                f.setName(name);
+                f.setQuantity(quantity + " Grams");
+                f.setCalorie(calorie + " Calories");
+                f.setProtein(protein + " grams of Protein");
+                f.setCarb(carb + " grams of Carbs");
+                f.setFat(fat + " grams of Fat");
+                //add it to array list to hold the information
+                allFoodsList.add(f);
+                adaptor.notifyDataSetChanged();
+            }
+
 
         } catch (Exception e)
 
@@ -104,14 +114,15 @@ public class BreakfastTab extends Fragment {
         }
         listViewLv.setAdapter(adaptor);
     }
+
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         //OnResume Fragment
     }
 
    /* private void getAllFood(String food) {
-        allFoods.clear();
+        allFoodsList.clear();
         DatabaseHandler db = new DatabaseHandler(getActivity());
 
         AllFoodsinTabs f = null;
@@ -135,7 +146,7 @@ public class BreakfastTab extends Fragment {
                 f.setCalorie(calorie + " Calories");
                 f.setProtein(protein);f.setCarb(carb);f.setFat(fat);
                 //add it to array list to hold the information
-                allFoods.add(f);
+                allFoodsList.add(f);
             }
         } catch (Exception e) {
             e.printStackTrace();

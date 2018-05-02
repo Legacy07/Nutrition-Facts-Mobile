@@ -22,7 +22,7 @@ public class Main extends AppCompatActivity
     //database class
     DatabaseHandler db;
     //variables to hold information from search fragment and pass this to nutrition summary fragment
-    private String name = " ";
+    private String name = "";
     private String quantity = "";
     private String calories = "";
     private String protein = "";

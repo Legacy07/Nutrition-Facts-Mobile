@@ -18,27 +18,25 @@
         android:id="@+id/listViewQuantityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/listViewNameText"
         android:padding="10dp"
+        android:layout_marginTop="-10dp"
         android:text="Quantity"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="10sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="60px" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/listViewCalorieText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/listViewQuantityText"
+        android:layout_marginTop="-10dp"
         android:padding="10dp"
         android:text="Calorie"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="10sp"
-        android:layout_below="@+id/listViewNameText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-         />
+        android:textSize="12sp" />
 
 
 </RelativeLayout>

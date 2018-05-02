@@ -16,7 +16,8 @@
         android:id="@+id/caloriesFragmentListViewProteinTotalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="200dp"
+        android:layout_toLeftOf="@+id/caloriesFragmentListProteinViewGoalTextView"
+        android:layout_marginRight="40dp"
         android:paddingTop="12dp"
         android:text="0" />
 
@@ -24,7 +25,8 @@
         android:id="@+id/caloriesFragmentListProteinViewGoalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="250dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
         android:paddingTop="12dp"
         android:text="0" />
 
@@ -32,12 +34,10 @@
         android:id="@+id/caloriesFragmentListViewProteinLeftTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="300dp"
-        android:paddingTop="12dp"
-        android:text="0"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:paddingTop="12dp"
+        android:text="0" />
 
 
 </RelativeLayout>

@@ -10,8 +10,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/banner_groupbox"
         android:orientation="vertical">
@@ -20,11 +18,9 @@
             android:id="@+id/layoutTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:text="How Much?"
-            android:textColor="#FFFFFF"
-            android:textSize="25dp"
-            />
+            android:textColor="@color/colorWhite"
+            android:textSize="25dp" />
 
     </RelativeLayout>
 
@@ -33,28 +29,30 @@
         android:id="@+id/dialogTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_below="@+id/groupBoxinsideLayout"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/gramsEdittext"
         android:text="grams of "
-        android:textColor="#000000"
-        android:textSize="18dp" />
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/nameTextviewDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_below="@+id/groupBoxinsideLayout"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/dialogTextView"
         android:text="food name"
-        android:textColor="#000000"
-        android:textSize="18dp" />
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/gramsEdittext"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="60dp"
+        android:layout_below="@+id/groupBoxinsideLayout"
+        android:layout_marginLeft="10dp"
         android:hint="in grams"
         android:inputType="number" />
 

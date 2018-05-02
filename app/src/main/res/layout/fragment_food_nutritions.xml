@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorControlHighlight"
+    android:background="@color/colorWhiteSmoke"
     android:orientation="vertical"
     tools:context="com.turkishlegacy.nutritionfactsmobile.FoodNutritions_Fragment">
 
@@ -12,8 +12,6 @@
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/banner_groupbox"
         android:orientation="vertical">
@@ -22,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nutrients"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorWhite"
             android:textSize="18sp" />
     </RelativeLayout>
 
@@ -31,8 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/groupBoxinsideLayout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:background="@drawable/groupbox"
         android:orientation="vertical">
 
@@ -41,10 +37,10 @@
             android:id="@+id/QuantityTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/foodNutritionNameTextBox"
             android:text="Serving Size"
             android:textColor="@color/colorAccent"
-
             android:typeface="serif" />
 
         <TextView
@@ -54,7 +50,6 @@
             android:layout_below="@+id/foodNutritionNameTextBox"
             android:text="Calories"
             android:textColor="@color/colorAccent"
-
             android:typeface="serif" />
 
         <TextView
@@ -62,8 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/foodNutritionNameTextBox"
-            android:layout_marginLeft="35dp"
-            android:layout_toRightOf="@+id/caloriesTextView"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/foodNutritionCalorieTextBox"
             android:text="Protein"
             android:textColor="@color/colorAccent"
             android:typeface="serif" />
@@ -74,8 +69,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/foodNutritionNameTextBox"
-            android:layout_marginLeft="35dp"
-            android:layout_toRightOf="@+id/proteinTextView"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/foodNutritionProteinTextBox"
             android:text="Carb"
             android:textColor="@color/colorAccent"
             android:typeface="serif" />
@@ -85,8 +80,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/foodNutritionNameTextBox"
-            android:layout_marginLeft="50dp"
-            android:layout_toRightOf="@+id/CarbTextView"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/foodNutritionCarbTextBox"
             android:text="Fat"
             android:textColor="@color/colorAccent"
             android:typeface="serif" />
@@ -101,8 +96,8 @@
 
         <EditText
             android:id="@+id/foodNutritionNameTextBox"
-            android:layout_width="470px"
-            android:layout_height="130px"
+            android:layout_width="250dp"
+            android:layout_height="65dp"
             android:layout_below="@+id/nameTextView"
             android:background="@drawable/rounded_edittext"
             android:editable="false"
@@ -113,8 +108,8 @@
 
         <EditText
             android:id="@+id/foodNutritionQuantityTextBox"
-            android:layout_width="150px"
-            android:layout_height="130px"
+            android:layout_width="75dp"
+            android:layout_height="65dp"
             android:layout_below="@id/QuantityTextView"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/foodNutritionNameTextBox"
@@ -127,8 +122,8 @@
 
         <EditText
             android:id="@+id/foodNutritionCalorieTextBox"
-            android:layout_width="150px"
-            android:layout_height="130px"
+            android:layout_width="75dp"
+            android:layout_height="65dp"
             android:layout_below="@+id/caloriesTextView"
             android:background="@drawable/rounded_edittext"
             android:editable="false"
@@ -139,11 +134,10 @@
 
         <EditText
             android:id="@+id/foodNutritionProteinTextBox"
-            android:layout_width="150px"
-            android:layout_height="130px"
+            android:layout_width="75dp"
+            android:layout_height="65dp"
             android:layout_below="@+id/proteinTextView"
             android:layout_marginLeft="5dp"
-            android:layout_toEndOf="@+id/foodNutritionCalorieTextBox"
             android:layout_toRightOf="@+id/foodNutritionCalorieTextBox"
             android:background="@drawable/rounded_edittext"
             android:editable="false"
@@ -154,11 +148,10 @@
 
         <EditText
             android:id="@+id/foodNutritionCarbTextBox"
-            android:layout_width="150px"
-            android:layout_height="130px"
+            android:layout_width="75dp"
+            android:layout_height="65dp"
             android:layout_below="@+id/CarbTextView"
             android:layout_marginLeft="5dp"
-            android:layout_toEndOf="@+id/foodNutritionProteinTextBox"
             android:layout_toRightOf="@+id/foodNutritionProteinTextBox"
             android:background="@drawable/rounded_edittext"
             android:editable="false"
@@ -169,8 +162,8 @@
 
         <EditText
             android:id="@+id/foodNutritionFatTextBox"
-            android:layout_width="150px"
-            android:layout_height="130px"
+            android:layout_width="75dp"
+            android:layout_height="65dp"
             android:layout_below="@+id/fatTextView"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/foodNutritionCarbTextBox"
@@ -196,8 +189,6 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_below="@id/groupBoxLayout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/banner_groupbox"
         android:orientation="vertical">
@@ -207,7 +198,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Calorie Breakdown"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
     </RelativeLayout>
@@ -217,8 +208,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/groupBoxinside2Layout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:background="@drawable/groupbox"
         android:orientation="vertical">
 
@@ -227,7 +216,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@id/calorieBreakdownProteinFiguresTextView"
-            android:background="?attr/colorControlHighlight" />
+            android:background="@color/colorLightGray" />
 
 
         <TextView
@@ -237,7 +226,7 @@
             android:layout_below="@+id/nameTextBox"
             android:layout_marginTop="10dp"
             android:text="Protein"
-            android:textColor="#000000"
+            android:textColor="@color/colorBlack"
             android:textSize="14sp"
             android:typeface="serif" />
 
@@ -245,7 +234,7 @@
             android:id="@+id/calorieBreakdownProteinFiguresTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="250dp"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:text="%0"
             android:textColor="#000000"
@@ -259,7 +248,7 @@
             android:layout_below="@+id/calorieBreakdownProteinFiguresTextView"
             android:layout_marginTop="10dp"
             android:text="Carb"
-            android:textColor="#000000"
+            android:textColor="@color/colorBlack"
             android:textSize="14sp"
             android:typeface="serif" />
 
@@ -267,8 +256,8 @@
             android:id="@+id/calorieBreakdownCarbFiguresTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/calorieBreakdownProteinFiguresTextView"
-            android:layout_marginLeft="250dp"
             android:layout_marginTop="10dp"
             android:text="%0"
             android:textColor="#000000"
@@ -280,7 +269,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@id/calorieBreakdownCarbFiguresTextView"
-            android:background="?attr/colorControlHighlight" />
+            android:background="@color/colorLightGray" />
 
         <TextView
             android:id="@+id/calorieBreakdownFatTextView"
@@ -289,7 +278,7 @@
             android:layout_below="@+id/calorieBreakdownCarbFiguresTextView"
             android:layout_marginTop="10dp"
             android:text="Fat"
-            android:textColor="#000000"
+            android:textColor="@color/colorBlack"
             android:textSize="14sp"
             android:typeface="serif" />
 
@@ -297,8 +286,8 @@
             android:id="@+id/calorieBreakdownFatFiguresTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/calorieBreakdownCarbFiguresTextView"
-            android:layout_marginLeft="250dp"
             android:layout_marginTop="10dp"
             android:text="%0"
             android:textColor="#000000"

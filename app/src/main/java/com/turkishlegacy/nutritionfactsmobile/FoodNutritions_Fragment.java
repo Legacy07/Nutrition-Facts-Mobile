@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.turkishlegacy.nutritionfactsmobile.database.DatabaseHandler;
 import com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.BreakfastTab;
@@ -36,6 +37,8 @@ public class FoodNutritions_Fragment extends Fragment {
     private double doubleTotalProteinPercentage;
     private double doubleTotalCarbPercentage;
     private double doubleTotalFatPercentage;
+
+    private double dInitialQuantity;
 
     public FoodNutritions_Fragment() {
     }
@@ -83,6 +86,8 @@ public class FoodNutritions_Fragment extends Fragment {
         String caloriesText = caloriesTextBoxVariable.getText().toString();
         String quantityText = quantityTextBoxVariable.getText().toString();
 
+        dInitialQuantity = Double.parseDouble(quantityText);
+
         CalculateCalorieBreakdown(fatText, carbText, proteinText, caloriesText);
 
         calorieBreakdownProteinVariable.setText(Double.toString(doubleTotalProteinPercentage) + " %");
@@ -93,7 +98,7 @@ public class FoodNutritions_Fragment extends Fragment {
         imageButton();
 
         //actionbar title change
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Summary");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Summary");
         return view;
     }
 
@@ -153,8 +158,34 @@ public class FoodNutritions_Fragment extends Fragment {
                 dialog.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        if (gramsEdittextDialog.getText().toString().equals("")){
+                            Toast.makeText(getActivity(),"Enter a value of more than 0", Toast.LENGTH_LONG).show();
+                        }
                         try {
                             quantityTextBoxVariable.setText(gramsEdittextDialog.getText().toString());
+
+                            //update other fields according to the updated serving size/quantity
+                            //FIX THIS L8 -- It doesnt update correctly after initial update because it doesnt get divide the update d
+                            String sQuantity = gramsEdittextDialog.getText().toString();
+                            double dQuantity = Double.parseDouble(sQuantity);
+
+                            double dDifference = dQuantity / dInitialQuantity;
+
+                            double dFat = Double.parseDouble(fatTextBoxVariable.getText().toString());
+                            double dCarb = Double.parseDouble(carbTextBoxVariable.getText().toString());
+                            double dProtein = Double.parseDouble(proteinTextBoxVariable.getText().toString());
+                            double dCalories = Double.parseDouble(caloriesTextBoxVariable.getText().toString());
+
+                            double fatTotal = dDifference * dFat;
+                            double carbTotal = dDifference * dCarb;
+                            double proteinTotal = dDifference * dProtein;
+                            double caloriesTotal = dDifference * dCalories;
+
+                            fatTextBoxVariable.setText(Double.toString(fatTotal));
+                            carbTextBoxVariable.setText(Double.toString(carbTotal));
+                            proteinTextBoxVariable.setText(Double.toString(proteinTotal));
+                            caloriesTextBoxVariable.setText(Double.toString(caloriesTotal));
+
                         } catch (Exception e) {
                             e.printStackTrace();
                             showMessage("Error", e.getMessage());

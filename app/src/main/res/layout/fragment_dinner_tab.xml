@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorControlHighlight"
+    android:background="@color/colorWhiteSmoke"
     tools:context="com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.DinnerTab">
 
     <RelativeLayout
@@ -11,9 +11,6 @@
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/banner_groupbox"
         android:orientation="vertical">
@@ -33,11 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="45dp"
+        android:layout_below="@id/groupBoxbannerLayout"
         android:background="@drawable/groupbox"
         android:orientation="vertical">
 
@@ -52,7 +45,7 @@
             android:drawableLeft="@mipmap/add_food"
             android:text=" Add Food"
             android:textAllCaps="false"
-            android:textSize="25px"
+            android:textSize="14sp"
             android:typeface="serif" />
 
         <ListView

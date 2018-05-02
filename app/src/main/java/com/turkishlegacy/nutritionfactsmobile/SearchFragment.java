@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.turkishlegacy.nutritionfactsmobile.database.DatabaseHandler;
 import com.turkishlegacy.nutritionfactsmobile.listviewadaptors.CustomListViewAdaptor;
+import com.turkishlegacy.nutritionfactsmobile.model.AllFoodsinTabs;
 import com.turkishlegacy.nutritionfactsmobile.model.Foods;
 
 import java.util.ArrayList;

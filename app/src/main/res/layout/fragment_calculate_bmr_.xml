@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorControlHighlight"
+    android:background="@color/colorWhiteSmoke"
     tools:context="com.turkishlegacy.nutritionfactsmobile.CalculateBMR_Fragment">
 
     <RelativeLayout
@@ -11,8 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/groupbox"
         android:orientation="vertical">
@@ -22,8 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/weightTextView"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
             android:hint="in kg"
@@ -37,7 +36,7 @@
             android:layout_height="1dp"
             android:layout_below="@id/weightTextBox"
             android:layout_marginTop="10dp"
-            android:background="?attr/colorControlHighlight" />
+            android:background="@color/colorLightGray" />
 
         <TextView
             android:id="@+id/weightTextView"
@@ -54,9 +53,10 @@
             android:id="@+id/heightTextBox"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_alignLeft="@+id/weightTextBox"
             android:layout_below="@+id/weightLine"
-            android:layout_marginLeft="70dp"
             android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/heightTextView"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
             android:hint="in cm"
@@ -81,15 +81,16 @@
             android:layout_height="1dp"
             android:layout_below="@id/heightTextBox"
             android:layout_marginTop="10dp"
-            android:background="?attr/colorControlHighlight" />
+            android:background="@color/colorWhiteSmoke" />
 
         <EditText
             android:id="@+id/ageTextBox"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_alignLeft="@+id/weightTextBox"
             android:layout_below="@+id/heightLine"
-            android:layout_marginLeft="70dp"
             android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/ageTextView"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
             android:hint="in years"
@@ -116,8 +117,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/groupBoxLayout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/groupbox">
 
@@ -134,7 +133,8 @@
             android:id="@+id/genderRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_below="@+id/genderTextView"
+            android:layout_marginTop="10dp"
             android:background="@color/colorPrimary"
             android:gravity=""
             android:orientation="horizontal">
@@ -162,8 +162,9 @@
             android:id="@+id/bmrTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/genderRadioGroup"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="10dp"
             android:text="Purpose of calculation?"
             android:textColor="@color/colorAccent" />
 
@@ -171,7 +172,8 @@
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_below="@+id/bmrTextView"
+            android:layout_marginTop="10dp"
             android:background="@color/colorPrimary"
             android:orientation="horizontal">
 
@@ -222,7 +224,7 @@
             android:text="Calculate"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:typeface="serif" />
 
 
@@ -233,8 +235,6 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_below="@id/groupBox2Layout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/banner_groupbox"
         android:orientation="vertical">
@@ -244,7 +244,7 @@
             android:layout_height="wrap_content"
             android:text="Result"
             android:textColor="#FFFFFF"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -253,8 +253,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/groupBoxbannerLayout"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:background="@drawable/groupbox"
         android:orientation="vertical">
 
@@ -262,7 +260,8 @@
             android:id="@+id/outputTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"/>
 
 
     </RelativeLayout>
