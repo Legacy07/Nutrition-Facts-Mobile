@@ -1,6 +1,10 @@
 package com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs;
 
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,16 +13,19 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.turkishlegacy.nutritionfactsmobile.Main;
 import com.turkishlegacy.nutritionfactsmobile.R;
 import com.turkishlegacy.nutritionfactsmobile.SearchFragment;
 import com.turkishlegacy.nutritionfactsmobile.listviewadaptors.TabsCustomListViewAdaptor;
 import com.turkishlegacy.nutritionfactsmobile.model.AllFoodsinTabs;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class BreakfastTab extends Fragment {
@@ -26,11 +33,19 @@ public class BreakfastTab extends Fragment {
     Button addbuttonVariable;
     //listview and arraylist declared
     ListView listViewLv;
+    //arraylist and adaptor
     TabsCustomListViewAdaptor adaptor;
-    ArrayList<AllFoodsinTabs> allFoodsList = new ArrayList<>();
+    ArrayList<AllFoodsinTabs> allFoodsList;
+
+    Main main;
+
+    AllFoodsinTabs allFoodsinTabs;
+    Button clearButton;
+    //shared prefs
+    SharedPreferences sharedPreferences = null;
+    SharedPreferences.Editor editor = null;
 
     public BreakfastTab() {
-        // Required empty public constructor
     }
 
 
@@ -41,24 +56,66 @@ public class BreakfastTab extends Fragment {
         View view = inflater.inflate(R.layout.fragment_breakfast_tab, container, false);
 
         addbuttonVariable = (Button) view.findViewById(R.id.addButton);
-        AddBreakfast();
+        clearButton = (Button) view.findViewById(R.id.clearButton);
 
+        loadList();
+        //initialise list view and adaptor
         listViewLv = (ListView) view.findViewById(R.id.listView);
         adaptor = new TabsCustomListViewAdaptor(getActivity(), allFoodsList);
+
         listViewLv.setAdapter(adaptor);
 
-        Main main = (Main) getActivity();
-        String getname = main.getName();
-        getAllFood();
-        //actionbar title change
+        listMeals();
+        gotoSearchFragment();
+        storeList();
+        //clear list
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //confirm
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setTitle("Confirmation");
+                builder.setMessage("Are you sure you want to clear all meals for Breakfast?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        //clear shared prefs
+                        editor.clear();
+                        editor.commit();
+
+                        //clear arraylist
+                        allFoodsList.clear();
+                        //clear list view
+                        listViewLv.setAdapter(null);
+                        adaptor.notifyDataSetChanged();
+                        dialog.dismiss();
+
+                        Toast.makeText(getActivity(), "Cleared!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        });
+
         return view;
     }
 
-    public void AddBreakfast() {
+    public void gotoSearchFragment() {
         //event listener for add button
         addbuttonVariable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //opens search fragment
                 SearchFragment searchFragment = new SearchFragment();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
@@ -70,13 +127,11 @@ public class BreakfastTab extends Fragment {
 
     }
 
-    //Look at this -- https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
-    //http://www.mkyong.com/android/android-listview-example/
-    private void getAllFood() {
-        allFoodsList.clear();
-        Main main = (Main) getActivity();
+    private void listMeals() {
+//        allFoodsList.clear();
+        allFoodsinTabs = new AllFoodsinTabs();
+        main = (Main) getActivity();
 
-        AllFoodsinTabs f = null;
         try {
 
             //getting the values from the get methods in main which is saved from search fragment
@@ -88,23 +143,22 @@ public class BreakfastTab extends Fragment {
             String carb = main.getCarb();
             String fat = main.getFat();
 
-            f = new AllFoodsinTabs();
             if (name.equals("")) {
             } else {
-                int index = 0;
 
                 //once the values are gathered, its passed to setter methods.
-                f.setName(name);
-                f.setQuantity(quantity + " Grams");
-                f.setCalorie(calorie + " Calories");
-                f.setProtein(protein + " grams of Protein");
-                f.setCarb(carb + " grams of Carbs");
-                f.setFat(fat + " grams of Fat");
-                //add it to array list to hold the information
-                allFoodsList.add(f);
-                adaptor.notifyDataSetChanged();
-            }
+                allFoodsinTabs.setName(name + "");
+                allFoodsinTabs.setQuantity(quantity + " Grams");
+                allFoodsinTabs.setCalorie(calorie + " Calories");
+                allFoodsinTabs.setProtein(protein + " grams of Protein");
+                allFoodsinTabs.setCarb(carb + " grams of Carbs");
+                allFoodsinTabs.setFat(fat + " grams of Fat");
 
+                //add it to array list to hold the information
+                allFoodsList.add(allFoodsinTabs);
+                adaptor.notifyDataSetChanged();
+                listViewLv.setAdapter(adaptor);
+            }
 
         } catch (Exception e)
 
@@ -112,49 +166,56 @@ public class BreakfastTab extends Fragment {
             e.printStackTrace();
             showMessage("Error", e.getMessage());
         }
-        listViewLv.setAdapter(adaptor);
+
+    }
+    //store the list in shared prefs
+    private void storeList(){
+        //initialise shared preferences
+        sharedPreferences = getActivity().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        //initialise gson
+        Gson gson = new Gson();
+        //store the list in json and save it to shared prefs
+        String json = gson.toJson(allFoodsList);
+        editor.putString("list", json);
+        editor.apply();
+    }
+
+    //load the list data
+    private void loadList() {
+        sharedPreferences = getActivity().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        //get the stored list
+        String json = sharedPreferences.getString("list", null);
+        Type type = new TypeToken<ArrayList<AllFoodsinTabs>>() {
+        }.getType();
+        //convert the data and put inside the list
+        allFoodsList = gson.fromJson(json, type);
+        //if the list is empty initialise a new one
+        if (allFoodsList == null) {
+
+            allFoodsList = new ArrayList<>();
+
+        }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //OnResume Fragment
+
     }
 
-   /* private void getAllFood(String food) {
-        allFoodsList.clear();
-        DatabaseHandler db = new DatabaseHandler(getActivity());
+    @Override
+    public void onPause() {
+        super.onPause();
 
-        AllFoodsinTabs f = null;
-        Cursor c = db.getCursorName(food);
-        try {
-            while (c.moveToNext()) {
-                int id = c.getInt(0);
-                //getting the values from the columns
-                String name = c.getString(0);
-                String quantity = c.getString(1);
-                String calorie = c.getString(2);
-                String protein = c.getString(3);
-                String carb = c.getString(4);
-                String fat = c.getString(5);
+    }
 
-                f = new AllFoodsinTabs();
-                f.setId(id);
-                //once the values are gathered, its passed to setter methods.
-                f.setName(name);
-                f.setQuantity(quantity + " Grams");
-                f.setCalorie(calorie + " Calories");
-                f.setProtein(protein);f.setCarb(carb);f.setFat(fat);
-                //add it to array list to hold the information
-                allFoodsList.add(f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            showMessage("Error", e.getMessage());
-        }
-        listViewLv.setAdapter(adaptor);
-
-    }*/
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     public void showMessage(String title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

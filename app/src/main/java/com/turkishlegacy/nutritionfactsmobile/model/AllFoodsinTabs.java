@@ -6,13 +6,13 @@ package com.turkishlegacy.nutritionfactsmobile.model;
 
 public class AllFoodsinTabs {
 
-    String name;
-    String calorie;
-    String quantity;
-    String protein;
-    String carb;
-    String fat;
-    int id;
+    String name = "";
+    String calorie = "";
+    String quantity = "";
+    String protein = "";
+    String carb = "";
+    String fat = "";
+    int id = 0;
 
     public AllFoodsinTabs() {
     }

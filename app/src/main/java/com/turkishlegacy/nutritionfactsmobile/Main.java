@@ -22,13 +22,19 @@ public class Main extends AppCompatActivity
     //database class
     DatabaseHandler db;
     //variables to hold information from search fragment and pass this to nutrition summary fragment
-    private String name = "";
-    private String quantity = "";
-    private String calories = "";
-    private String protein = "";
-    private String carb = "";
-    private String fat = "";
+    public String name = "";
+    public String quantity = "";
+    public String calories = "";
+    public String protein = "";
+    public String carb = "";
+    public String fat = "";
 
+    public String searchName = "";
+    public String searchQuantity = "";
+    public String searchCalories = "";
+    public String searchProtein = "";
+    public String searchCarb = "";
+    public String searchFat = "";
 
     //created automatically
     @Override
@@ -203,5 +209,57 @@ public class Main extends AppCompatActivity
     public void setFat(String sFat) {
         this.fat = sFat;
     }
+
+
+    //getters and setters
+    public String getSearchName() {
+        return this.searchName;
+    }
+
+    public void setSearchName(String sName) {
+        this.searchName = sName;
+    }
+
+    public String getSearchQuantity() {
+        return this.searchQuantity;
+    }
+
+    public void setSearchQuantity(String sQuantity) {
+        this.searchQuantity = sQuantity;
+    }
+
+    public String getSearchCalories() {
+        return this.searchCalories;
+    }
+
+    public void setSearchCalories(String sCalories) {
+        this.searchCalories = sCalories;
+    }
+
+    public String getSearchProtein() {
+        return this.searchProtein;
+    }
+
+    public void setSearchProtein(String sProtein) {
+        this.searchProtein = sProtein;
+    }
+
+    public String getSearchCarb() {
+        return this.searchCarb;
+    }
+
+    public void setSearchCarb(String sCarb) {
+        this.searchCarb = sCarb;
+    }
+
+    public String getSearchFat() {
+        return this.searchFat;
+    }
+
+    public void setSearchFat(String sFat) {
+        this.searchFat = sFat;
+    }
+
+
 
 }

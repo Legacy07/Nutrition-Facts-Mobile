@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.turkishlegacy.nutritionfactsmobile.database.DatabaseHandler;
 import com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.BreakfastTab;
+import com.turkishlegacy.nutritionfactsmobile.model.AllFoodsinTabs;
 
 
 public class FoodNutritions_Fragment extends Fragment {
@@ -38,7 +39,9 @@ public class FoodNutritions_Fragment extends Fragment {
     private double doubleTotalCarbPercentage;
     private double doubleTotalFatPercentage;
 
-    private double dInitialQuantity;
+    private double dInitialQuantity = 0;
+
+    AllFoodsinTabs allFoodsinTabs = new AllFoodsinTabs();
 
     public FoodNutritions_Fragment() {
     }
@@ -66,20 +69,16 @@ public class FoodNutritions_Fragment extends Fragment {
         imageUpdateButton = (ImageButton) view.findViewById(R.id.updateButton);
         //get activity off of main activity
         Main main = (Main) getActivity();
+        searchFragment = new SearchFragment();
+
         //setting text in text boxes thats being saved in main class of off get method
-        try {
-            nameTextBoxVariable.setText(main.getName());
-            quantityTextBoxVariable.setText(main.getQuantity());
-            caloriesTextBoxVariable.setText(main.getCalories());
-            proteinTextBoxVariable.setText(main.getProtein());
-            carbTextBoxVariable.setText(main.getCarb());
-            fatTextBoxVariable.setText(main.getFat());
+        nameTextBoxVariable.setText(main.getSearchName());
+        quantityTextBoxVariable.setText(main.getSearchQuantity());
+        caloriesTextBoxVariable.setText(main.getSearchCalories());
+        proteinTextBoxVariable.setText(main.getSearchProtein());
+        carbTextBoxVariable.setText(main.getSearchCarb());
+        fatTextBoxVariable.setText(main.getSearchFat());
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            showMessage("Error", e.getMessage());
-
-        }
         String fatText = fatTextBoxVariable.getText().toString();
         String carbText = carbTextBoxVariable.getText().toString();
         String proteinText = proteinTextBoxVariable.getText().toString();
@@ -115,6 +114,17 @@ public class FoodNutritions_Fragment extends Fragment {
         switch (item.getItemId()) {
             //when add button is selected it adds the values of text boxes in breakfast tab
             case R.id.foodNutritions_addActionBar:
+                Main main = (Main) getActivity();
+                searchFragment = new SearchFragment();
+                //send it to setters
+                main.setName(nameTextBoxVariable.getText().toString());
+                main.setCalories(caloriesTextBoxVariable.getText().toString());
+                main.setCarb(carbTextBoxVariable.getText().toString());
+                main.setFat(fatTextBoxVariable.getText().toString());
+                main.setProtein(proteinTextBoxVariable.getText().toString());
+                main.setQuantity(quantityTextBoxVariable.getText().toString());
+
+
                 //opens the nutrition summary Fragment
                 DiaryFragment diaryFragment = new DiaryFragment();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
@@ -158,8 +168,8 @@ public class FoodNutritions_Fragment extends Fragment {
                 dialog.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        if (gramsEdittextDialog.getText().toString().equals("")){
-                            Toast.makeText(getActivity(),"Enter a value of more than 0", Toast.LENGTH_LONG).show();
+                        if (gramsEdittextDialog.getText().toString().equals("")) {
+                            Toast.makeText(getActivity(), "Enter a value of more than 0", Toast.LENGTH_LONG).show();
                         }
                         try {
                             quantityTextBoxVariable.setText(gramsEdittextDialog.getText().toString());

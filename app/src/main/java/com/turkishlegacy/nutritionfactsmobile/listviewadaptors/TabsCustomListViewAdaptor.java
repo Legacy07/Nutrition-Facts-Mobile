@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.turkishlegacy.nutritionfactsmobile.SearchFragment;
 import com.turkishlegacy.nutritionfactsmobile.model.AllFoodsinTabs;
 import com.turkishlegacy.nutritionfactsmobile.R;
 
@@ -17,26 +18,26 @@ import java.util.ArrayList;
 public class TabsCustomListViewAdaptor extends BaseAdapter {
 
     EditText searchTextVariable;
-    Context c;
+    Context context;
     //array list for foods class
-    ArrayList<AllFoodsinTabs> allFoods;
+    ArrayList<AllFoodsinTabs> allFoodsList;
     LayoutInflater inflater;
 
     public TabsCustomListViewAdaptor(Context c, ArrayList<AllFoodsinTabs> allFoods) {
-        this.c = c;
-        this.allFoods = allFoods;
+        this.context = c;
+        this.allFoodsList = allFoods;
     }
 
     //get the size of the arraylist
     @Override
     public int getCount() {
-        return allFoods.size();
+        return allFoodsList.size();
     }
 
     //get the items
     @Override
     public Object getItem(int position) {
-        return allFoods.get(position);
+        return allFoodsList.get(position);
     }
 
     //get position of the item to get the item
@@ -49,7 +50,7 @@ public class TabsCustomListViewAdaptor extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         //inflate it to custom listview layout
         if (inflater == null) {
-            inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.tabs_listview, parent, false);
@@ -63,12 +64,12 @@ public class TabsCustomListViewAdaptor extends BaseAdapter {
         TextView fatText = (TextView) convertView.findViewById(R.id.tabsListviewFat);
 
         //place gathered item into text view to output
-        nameTxt.setText(allFoods.get(position).getName());
-        quantityText.setText(allFoods.get(position).getQuantity());
-        calorieText.setText(allFoods.get(position).getCalorie());
-        proteinText.setText(allFoods.get(position).getProtein());
-        carbText.setText(allFoods.get(position).getCarb());
-        fatText.setText(allFoods.get(position).getFat());
+        nameTxt.setText(allFoodsList.get(position).getName());
+        quantityText.setText(allFoodsList.get(position).getQuantity());
+        calorieText.setText(allFoodsList.get(position).getCalorie());
+        proteinText.setText(allFoodsList.get(position).getProtein());
+        carbText.setText(allFoodsList.get(position).getCarb());
+        fatText.setText(allFoodsList.get(position).getFat());
 
         //event handler if clicked
       /*  final int pos = position;

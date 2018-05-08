@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -32,10 +31,18 @@ public class SearchFragment extends Fragment {
     //listview and arraylist declared
     ListView listViewLv;
     CustomListViewAdaptor adaptor;
-    ArrayList<Foods> foods = new ArrayList<>();
+    ArrayList<Foods> foodsArrayList = new ArrayList<>();
+
+    AllFoodsinTabs allFoodsinTabs = new AllFoodsinTabs();
+
+    public String name = "";
+    public String calories = "";
+    public String protein = "";
+    public String carb = "";
+    public String fat = "";
+    public String quantity = "";
 
     public SearchFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -47,7 +54,7 @@ public class SearchFragment extends Fragment {
 
         searchTextVariable = (EditText) view.findViewById(R.id.searchTextBox);
         listViewLv = (ListView) view.findViewById(R.id.listView);
-        adaptor = new CustomListViewAdaptor(getActivity(), foods);
+        adaptor = new CustomListViewAdaptor(getActivity(), foodsArrayList);
 
         listViewLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,21 +63,26 @@ public class SearchFragment extends Fragment {
                 try {
                     Main main = (Main) getActivity();
 
-                    String getNameText = foods.get(position).getName();
+                    String getNameText = foodsArrayList.get(position).getName();
                     //gets the string from name text box and by using the methods from database handler,
                     // it gets the values by name and set it in textbox of Nutrition Summary fragment.
                     String setName = db.getName(getNameText);
-                    main.setName(setName);
+                    main.setSearchName(setName);
+
                     String setCalorie = db.getCalories(getNameText);
-                    main.setCalories(setCalorie);
+                    main.setSearchCalories(setCalorie);
+
                     String setQuantity = db.getQuantity(getNameText);
-                    main.setQuantity(setQuantity);
+                    main.setSearchQuantity(setQuantity);
+
                     String setProtein = db.getProtein(getNameText);
-                    main.setProtein(setProtein);
+                    main.setSearchProtein(setProtein);
+
                     String setCarb = db.getCarb(getNameText);
-                    main.setCarb(setCarb);
+                    main.setSearchCarb(setCarb);
+
                     String setFat = db.getFat(getNameText);
-                    main.setFat(setFat);
+                    main.setSearchFat(setFat);
 
                     //opens the nutrition summary Fragment
                     FoodNutritions_Fragment foodNutritions_fragment = new FoodNutritions_Fragment();
@@ -100,7 +112,7 @@ public class SearchFragment extends Fragment {
                 try {
 
                     String getNameText = searchTextVariable.getText().toString();
-                    getFood(getNameText);
+                    showMeals(getNameText);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -119,11 +131,11 @@ public class SearchFragment extends Fragment {
         builder.show();
     }
 
-    private void getFood(String food) {
-        foods.clear();
+    private void showMeals(String food) {
+        foodsArrayList.clear();
         DatabaseHandler db = new DatabaseHandler(getActivity());
 
-        Foods f = null;
+            Foods f = null;
         Cursor c = db.getCursorName(food);
         try {
             while (c.moveToNext()) {
@@ -139,7 +151,7 @@ public class SearchFragment extends Fragment {
                 f.setQuantity(quantity + " Grams");
                 f.setCalorie(calorie + " Calories");
                 //add it to array list to hold the information
-                foods.add(f);
+                foodsArrayList.add(f);
             }
         } catch (Exception e) {
             e.printStackTrace();

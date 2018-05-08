@@ -20,8 +20,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:text="Add Food"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorWhite"
             android:textSize="18sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/clearButton"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Clear Meals"
+            android:textAllCaps="false"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"/>
+
     </RelativeLayout>
 
     <RelativeLayout
