@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Add Food"
+            android:text="Add Meals"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
@@ -30,7 +30,7 @@
             android:layout_alignParentRight="true"
             android:text="Clear Meals"
             android:textAllCaps="false"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorWhite"
             android:textColor="@color/colorPrimaryDark"/>
 
     </RelativeLayout>

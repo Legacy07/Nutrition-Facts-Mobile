@@ -1,7 +1,10 @@
 package com.turkishlegacy.nutritionfactsmobile;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.icu.util.IslamicCalendar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +27,8 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
 
+//    private ISearchFragment iSearchFragment;
+
     EditText searchTextVariable;
     ImageButton searchButtonVariable;
     DatabaseHandler db;
@@ -41,9 +46,16 @@ public class SearchFragment extends Fragment {
     public String carb = "";
     public String fat = "";
     public String quantity = "";
+    Main main;
 
     public SearchFragment() {
     }
+
+    //try this look at 6th solution -- https://stackoverflow.com/questions/5194548/how-to-pass-data-between-fragments
+//    public interface ISearchFragment {
+//
+//        void setNameInterface(String sName);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,31 +73,45 @@ public class SearchFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 try {
-                    Main main = (Main) getActivity();
+                    main = (Main) getActivity();
 
                     String getNameText = foodsArrayList.get(position).getName();
-                    //gets the string from name text box and by using the methods from database handler,
-                    // it gets the values by name and set it in textbox of Nutrition Summary fragment.
+                    //gets the string from breakfastFoodName text box and by using the methods from database handler,
+                    // it gets the values by breakfastFoodName and set it in textbox of Nutrition Summary fragment.
                     String setName = db.getName(getNameText);
-                    main.setSearchName(setName);
+//                    main.setSearchName(setBreakfastFoodName);
 
                     String setCalorie = db.getCalories(getNameText);
-                    main.setSearchCalories(setCalorie);
+//                    main.setSearchCalories(setCalorie);
 
                     String setQuantity = db.getQuantity(getNameText);
-                    main.setSearchQuantity(setQuantity);
+//                    main.setSearchQuantity(setBreakfastFoodQuantity);
 
                     String setProtein = db.getProtein(getNameText);
-                    main.setSearchProtein(setProtein);
+//                    main.setSearchProtein(setBreakfastFoodProtein);
 
                     String setCarb = db.getCarb(getNameText);
-                    main.setSearchCarb(setCarb);
+//                    main.setSearchCarb(setBreakfastFoodCarb);
 
                     String setFat = db.getFat(getNameText);
-                    main.setSearchFat(setFat);
+//                    main.setSearchFat(setBreakfastFoodFat);
+
+//                    iSearchFragment.setNameInterface(setBreakfastFoodName);
+
+                    FoodNutritions_Fragment foodNutritions_fragment = new FoodNutritions_Fragment();
+                    //pass the data via bundle to food nutritions fragment
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("foodName", setName);
+                    bundle.putString("foodCalorie", setCalorie);
+                    bundle.putString("foodQuantity", setQuantity);
+                    bundle.putString("foodProtein", setProtein);
+                    bundle.putString("foodCarb", setCarb);
+                    bundle.putString("foodFat", setFat);
+
+                    foodNutritions_fragment.setArguments(bundle);
 
                     //opens the nutrition summary Fragment
-                    FoodNutritions_Fragment foodNutritions_fragment = new FoodNutritions_Fragment();
                     FragmentManager manager = getActivity().getSupportFragmentManager();
                     //replacing the fragment inside the layout
                     manager.beginTransaction().replace(R.id.layout_Fragment, foodNutritions_fragment).commit();
@@ -101,7 +127,7 @@ public class SearchFragment extends Fragment {
         Search(view);
 
         //actionbar title change
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Search Foods");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Search Foods");
         return view;
     }
 
@@ -123,6 +149,23 @@ public class SearchFragment extends Fragment {
 
     }
 
+    //check if the interface is implemented
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+//        if (context instanceof ISearchFragment) {
+//            iSearchFragment = (ISearchFragment) context;
+//        } else {
+//            new RuntimeException(context.toString() + " ISearchFragment isn't implemented yet!");
+//        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+//        iSearchFragment = null;
+    }
+
     public void showMessage(String title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(true);
@@ -135,7 +178,7 @@ public class SearchFragment extends Fragment {
         foodsArrayList.clear();
         DatabaseHandler db = new DatabaseHandler(getActivity());
 
-            Foods f = null;
+        Foods f = null;
         Cursor c = db.getCursorName(food);
         try {
             while (c.moveToNext()) {
@@ -161,5 +204,18 @@ public class SearchFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
 
+//        if (main.getIsBreakfast() == true) {
+//            main.setIsBreakfast(false);
+//        }
+//        if (main.getIsLunch() == true) {
+//            main.setIsLunch(false);
+//        }
+//        if (main.getIsDinner() == true) {
+//            main.setIsDinner(false);
+//        }
+    }
 }

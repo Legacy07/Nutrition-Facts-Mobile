@@ -1,14 +1,12 @@
 package com.turkishlegacy.nutritionfactsmobile;
 
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.turkishlegacy.nutritionfactsmobile.database.DatabaseHandler;
-import com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.BreakfastTab;
 import com.turkishlegacy.nutritionfactsmobile.model.AllFoodsinTabs;
 
 
@@ -29,6 +26,7 @@ public class FoodNutritions_Fragment extends Fragment {
 
     DatabaseHandler db;
     SearchFragment searchFragment;
+
     EditText nameTextBoxVariable, caloriesTextBoxVariable,
             quantityTextBoxVariable, proteinTextBoxVariable,
             carbTextBoxVariable, fatTextBoxVariable, gramsEdittextDialog;
@@ -41,11 +39,18 @@ public class FoodNutritions_Fragment extends Fragment {
 
     private double dInitialQuantity = 0;
 
+    public String name = "";
+
     AllFoodsinTabs allFoodsinTabs = new AllFoodsinTabs();
+    private String fatText;
+    private String carbText;
+    private String caloriesText;
+    private String proteinText;
+    private String quantityText;
+    private String nameText;
 
     public FoodNutritions_Fragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,40 +60,50 @@ public class FoodNutritions_Fragment extends Fragment {
 
         db = new DatabaseHandler(getActivity());
 
+        //initialisations
         nameTextBoxVariable = (EditText) view.findViewById(R.id.foodNutritionNameTextBox);
         quantityTextBoxVariable = (EditText) view.findViewById(R.id.foodNutritionQuantityTextBox);
         caloriesTextBoxVariable = (EditText) view.findViewById(R.id.foodNutritionCalorieTextBox);
         proteinTextBoxVariable = (EditText) view.findViewById(R.id.foodNutritionProteinTextBox);
         carbTextBoxVariable = (EditText) view.findViewById(R.id.foodNutritionCarbTextBox);
         fatTextBoxVariable = (EditText) view.findViewById(R.id.foodNutritionFatTextBox);
-
         calorieBreakdownProteinVariable = (TextView) view.findViewById(R.id.calorieBreakdownProteinFiguresTextView);
         calorieBreakdownCarbVariable = (TextView) view.findViewById(R.id.calorieBreakdownCarbFiguresTextView);
         calorieBreakdownFatVariable = (TextView) view.findViewById(R.id.calorieBreakdownFatFiguresTextView);
-
         imageUpdateButton = (ImageButton) view.findViewById(R.id.updateButton);
+
         //get activity off of main activity
         Main main = (Main) getActivity();
-        searchFragment = new SearchFragment();
+//        searchFragment = new SearchFragment();
+
+        //get the data via bundle from search fragment
+        Bundle bundle = this.getArguments();
+        String foodName = bundle.getString("foodName", bundle.toString());
+        String foodQuantity = bundle.getString("foodQuantity", bundle.toString());
+        String foodCalorie = bundle.getString("foodCalorie", bundle.toString());
+        String foodProtein = bundle.getString("foodProtein", bundle.toString());
+        String foodCarb = bundle.getString("foodCarb", bundle.toString());
+        String foodFat = bundle.getString("foodFat", bundle.toString());
 
         //setting text in text boxes thats being saved in main class of off get method
-        nameTextBoxVariable.setText(main.getSearchName());
-        quantityTextBoxVariable.setText(main.getSearchQuantity());
-        caloriesTextBoxVariable.setText(main.getSearchCalories());
-        proteinTextBoxVariable.setText(main.getSearchProtein());
-        carbTextBoxVariable.setText(main.getSearchCarb());
-        fatTextBoxVariable.setText(main.getSearchFat());
+        nameTextBoxVariable.setText(foodName);
+        quantityTextBoxVariable.setText(foodQuantity);
+        caloriesTextBoxVariable.setText(foodCalorie);
+        proteinTextBoxVariable.setText(foodProtein);
+        carbTextBoxVariable.setText(foodCarb);
+        fatTextBoxVariable.setText(foodFat);
 
-        String fatText = fatTextBoxVariable.getText().toString();
-        String carbText = carbTextBoxVariable.getText().toString();
-        String proteinText = proteinTextBoxVariable.getText().toString();
-        String caloriesText = caloriesTextBoxVariable.getText().toString();
-        String quantityText = quantityTextBoxVariable.getText().toString();
+        //get the text from text boxes
+        nameText = nameTextBoxVariable.getText().toString();
+        fatText = fatTextBoxVariable.getText().toString();
+        carbText = carbTextBoxVariable.getText().toString();
+        proteinText = proteinTextBoxVariable.getText().toString();
+        caloriesText = caloriesTextBoxVariable.getText().toString();
+        quantityText = quantityTextBoxVariable.getText().toString();
 
         dInitialQuantity = Double.parseDouble(quantityText);
-
+        //calculate calorie breakdown and set it to text boxes
         CalculateCalorieBreakdown(fatText, carbText, proteinText, caloriesText);
-
         calorieBreakdownProteinVariable.setText(Double.toString(doubleTotalProteinPercentage) + " %");
         calorieBreakdownFatVariable.setText(Double.toString(doubleTotalFatPercentage) + " %");
         calorieBreakdownCarbVariable.setText(Double.toString(doubleTotalCarbPercentage) + " %");
@@ -116,15 +131,38 @@ public class FoodNutritions_Fragment extends Fragment {
             case R.id.foodNutritions_addActionBar:
                 Main main = (Main) getActivity();
                 searchFragment = new SearchFragment();
-                //send it to setters
-                main.setName(nameTextBoxVariable.getText().toString());
-                main.setCalories(caloriesTextBoxVariable.getText().toString());
-                main.setCarb(carbTextBoxVariable.getText().toString());
-                main.setFat(fatTextBoxVariable.getText().toString());
-                main.setProtein(proteinTextBoxVariable.getText().toString());
-                main.setQuantity(quantityTextBoxVariable.getText().toString());
 
+                if (main.getIsBreakfast() == true) {
+                    //send it to setters
+                    main.setBreakfastFoodName(nameText);
+                    main.setBreakfastFoodCalories(caloriesText);
+                    main.setBreakfastFoodCarb(carbText);
+                    main.setBreakfastFoodFat(fatText);
+                    main.setBreakfastFoodProtein(proteinText);
+                    main.setBreakfastFoodQuantity(quantityText);
 
+                    main.setIsBreakfast(false);
+                } else if (main.getIsLunch() == true) {
+
+                    main.setLunchFoodName(nameText);
+                    main.setLunchFoodCalories(caloriesText);
+                    main.setLunchFoodCarb(carbText);
+                    main.setLunchFoodFat(fatText);
+                    main.setLunchFoodProtein(proteinText);
+                    main.setLunchFoodQuantity(quantityText);
+
+                    main.setIsLunch(false);
+                } else if (main.getIsDinner() == true) {
+
+                    main.setDinnerFoodName(nameText);
+                    main.setDinnerFoodCalories(caloriesText);
+                    main.setDinnerFoodCarb(carbText);
+                    main.setDinnerFoodFat(fatText);
+                    main.setDinnerFoodProtein(proteinText);
+                    main.setDinnerFoodQuantity(quantityText);
+
+                    main.setIsDinner(false);
+                }
                 //opens the nutrition summary Fragment
                 DiaryFragment diaryFragment = new DiaryFragment();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
@@ -174,7 +212,7 @@ public class FoodNutritions_Fragment extends Fragment {
                         try {
                             quantityTextBoxVariable.setText(gramsEdittextDialog.getText().toString());
 
-                            //update other fields according to the updated serving size/quantity
+                            //update other fields according to the updated serving size/breakfastFoodQuantity
                             //FIX THIS L8 -- It doesnt update correctly after initial update because it doesnt get divide the update d
                             String sQuantity = gramsEdittextDialog.getText().toString();
                             double dQuantity = Double.parseDouble(sQuantity);
@@ -227,8 +265,8 @@ public class FoodNutritions_Fragment extends Fragment {
 
     //Calculates the percentage of nutritions based on the input and the class Calorie_Breakdown
     public void CalculateCalorieBreakdown(String fat, String carb, String protein, String calories) {
-        //Calorie breakdown in fat, protein and carbs.
-        //First we get the nutritions in calories then acquire the percentage of it
+        //Calorie breakdown in breakfastFoodFat, breakfastFoodProtein and carbs.
+        //First we get the nutritions in breakfastFoodCalories then acquire the percentage of it
         double fatCalories = Calorie_Breakdown.fatToCalories(Double.parseDouble(fat));
         double totalFatPercentage = Calorie_Breakdown.caloriesInFat(fatCalories, Double.parseDouble(calories));
         doubleTotalFatPercentage = Math.round(totalFatPercentage);
@@ -243,4 +281,7 @@ public class FoodNutritions_Fragment extends Fragment {
 
     }
 
+    public void updateName(String name) {
+//        nameTextBoxVariable.setText(breakfastFoodName);
+    }
 }

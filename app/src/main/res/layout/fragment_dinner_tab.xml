@@ -19,10 +19,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Add Food"
-            android:textColor="#FFFFFF"
+            android:text="Add Meals"
+            android:textColor="@color/colorWhite"
             android:textSize="18sp"
              />
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/clearDinnerButton"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Clear Meals"
+            android:textAllCaps="false"
+            android:background="@color/colorWhite"
+            android:textColor="@color/colorPrimaryDark"/>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -35,7 +45,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/addButton"
+            android:id="@+id/addDinnerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -52,7 +62,7 @@
             android:id="@+id/dinnerListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addButton" />
+            android:layout_below="@+id/addDinnerButton" />
 
     </RelativeLayout>
 

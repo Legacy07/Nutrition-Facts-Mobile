@@ -1,7 +1,6 @@
 package com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs;
 
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
 
 public class BreakfastTab extends Fragment {
 
-    Button addbuttonVariable;
+    Button addButton;
     //listview and arraylist declared
     ListView listViewLv;
     //arraylist and adaptor
@@ -55,10 +54,13 @@ public class BreakfastTab extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_breakfast_tab, container, false);
 
-        addbuttonVariable = (Button) view.findViewById(R.id.addButton);
+        addButton = (Button) view.findViewById(R.id.addButton);
         clearButton = (Button) view.findViewById(R.id.clearButton);
 
+        final Main main = (Main) getActivity();
+
         loadList();
+
         //initialise list view and adaptor
         listViewLv = (ListView) view.findViewById(R.id.listView);
         adaptor = new TabsCustomListViewAdaptor(getActivity(), allFoodsList);
@@ -68,6 +70,14 @@ public class BreakfastTab extends Fragment {
         listMeals();
         gotoSearchFragment();
         storeList();
+
+        main.setBreakfastFoodName("");
+        main.setBreakfastFoodQuantity("");
+        main.setBreakfastFoodCalories("");
+        main.setBreakfastFoodProtein("");
+        main.setBreakfastFoodFat("");
+        main.setBreakfastFoodCarb("");
+
         //clear list
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +100,14 @@ public class BreakfastTab extends Fragment {
                         //clear list view
                         listViewLv.setAdapter(null);
                         adaptor.notifyDataSetChanged();
+                        //clear fields
+                        main.setBreakfastFoodName("");
+                        main.setBreakfastFoodQuantity("");
+                        main.setBreakfastFoodCalories("");
+                        main.setBreakfastFoodProtein("");
+                        main.setBreakfastFoodFat("");
+                        main.setBreakfastFoodCarb("");
+
                         dialog.dismiss();
 
                         Toast.makeText(getActivity(), "Cleared!", Toast.LENGTH_SHORT).show();
@@ -112,10 +130,11 @@ public class BreakfastTab extends Fragment {
 
     public void gotoSearchFragment() {
         //event listener for add button
-        addbuttonVariable.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //send it to
+                main.setIsBreakfast(true);
                 //opens search fragment
                 SearchFragment searchFragment = new SearchFragment();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
@@ -136,12 +155,12 @@ public class BreakfastTab extends Fragment {
 
             //getting the values from the get methods in main which is saved from search fragment
             // when the item was searched and selected
-            String name = main.getName();
-            String quantity = main.getQuantity();
-            String calorie = main.getCalories();
-            String protein = main.getProtein();
-            String carb = main.getCarb();
-            String fat = main.getFat();
+            String name = main.getBreakfastFoodName();
+            String quantity = main.getBreakfastFoodQuantity();
+            String calorie = main.getBreakfastFoodCalories();
+            String protein = main.getBreakfastFoodProtein();
+            String carb = main.getBreakfastFoodCarb();
+            String fat = main.getBreakfastFoodFat();
 
             if (name.equals("")) {
             } else {
@@ -168,8 +187,9 @@ public class BreakfastTab extends Fragment {
         }
 
     }
+
     //store the list in shared prefs
-    private void storeList(){
+    private void storeList() {
         //initialise shared preferences
         sharedPreferences = getActivity().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();

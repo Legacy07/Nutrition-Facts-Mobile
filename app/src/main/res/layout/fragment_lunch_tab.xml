@@ -19,23 +19,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Add Food"
+            android:text="Add Meals"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            />
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/clearLunchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorWhite"
+            android:text="Clear Meals"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark" />
+
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/groupBoxLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/groupBoxbannerLayout"
         android:background="@drawable/groupbox"
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/addButton"
+            android:id="@+id/addLunchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -52,7 +62,7 @@
             android:id="@+id/lunchListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addButton" />
+            android:layout_below="@+id/addLunchButton" />
 
     </RelativeLayout>
 

@@ -60,7 +60,7 @@ public class ImportExportDatabase_Fragment extends Fragment {
     //global variables
     private File[] fileList;
     private String[] filenameList;
-    //package name goes here.
+    //package breakfastFoodName goes here.
     public static final String PACKAGE_NAME = "com.turkishlegacy.nutritionfactsmobile";
     public static final String KEY_DIRECTORY_SELECTED =
             PACKAGE_NAME + ".DIRECTORY_SELECTED";

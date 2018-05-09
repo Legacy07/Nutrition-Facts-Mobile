@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhiteSmoke"
     android:orientation="vertical"
+    android:id="@+id/fragment_food_nutritions"
     tools:context="com.turkishlegacy.nutritionfactsmobile.FoodNutritions_Fragment">
 
     <RelativeLayout

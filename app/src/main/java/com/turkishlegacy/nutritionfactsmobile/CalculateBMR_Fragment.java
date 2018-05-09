@@ -91,10 +91,10 @@ public class CalculateBMR_Fragment extends Fragment {
     //action bar button options
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        whatIsBMR = "Basal metabolic rate (BMR)" + " - is the total number of calories that your body needs to perform basic, " +
+        whatIsBMR = "Basal metabolic rate (BMR)" + " - is the total number of breakfastFoodCalories that your body needs to perform basic, " +
                 "life-sustaining functions. These basal functions include circulation, breathing, cell production," +
-                " nutrient processing, protein synthesis and ion transport. You can calculate basal metabolic rate " +
-                "using a mathematical formula.\nCalculation of BMR will help you to realise how much calories you need to " +
+                " nutrient processing, breakfastFoodProtein synthesis and ion transport. You can calculate basal metabolic rate " +
+                "using a mathematical formula.\nCalculation of BMR will help you to realise how much breakfastFoodCalories you need to " +
                 "maintain your body and/or losing or gaining weight depending on what route you're on. ";
 
         switch (item.getItemId()) {
@@ -117,8 +117,8 @@ public class CalculateBMR_Fragment extends Fragment {
                         public void onClick(View view) {
                             String formula = "Men: BMR = 66.47 + (13.47 x weight in kg) + (5 x height in cm) - (6.8 x age in years)\n\n" +
                                     "Women: BMR = 447.593 + (9.247 x weight in kg) + (3.098 x height in cm) - (4.330 x age in years)\n\n" +
-                                    "For both genders: \nSurplus = add 250 to 500 calories to your BMR\n\n" +
-                                    "Deficit = subtract 250 to 500 calories from your BMR ";
+                                    "For both genders: \nSurplus = add 250 to 500 breakfastFoodCalories to your BMR\n\n" +
+                                    "Deficit = subtract 250 to 500 breakfastFoodCalories from your BMR ";
 
                             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                             //inflate the dialog layout to import it into alert dialog in order to view
@@ -232,11 +232,11 @@ public class CalculateBMR_Fragment extends Fragment {
 
     public void InformationSurplusDeficit() {
         //definition of calorie surplus
-        definitionSurplus = "Caloric Surplus" + " - is a state in which you are eating more calories than you are burning. " +
-                "Gaining weight requires a calories surplus. When you enter this state, your body takes the excess energy " +
-                "and uses it to either make you more muscular (if you are working out) or build up body fat and make you fatter.";
+        definitionSurplus = "Caloric Surplus" + " - is a state in which you are eating more breakfastFoodCalories than you are burning. " +
+                "Gaining weight requires a breakfastFoodCalories surplus. When you enter this state, your body takes the excess energy " +
+                "and uses it to either make you more muscular (if you are working out) or build up body breakfastFoodFat and make you fatter.";
         //definition of caloric deficit
-        definitionDeficit = "Caloric Deficit" + " - is a state in which you are burning more calories than you eat. " +
+        definitionDeficit = "Caloric Deficit" + " - is a state in which you are burning more breakfastFoodCalories than you eat. " +
                 "Losing weight requires a calorie deficit. When you enter this state, your body needs to somehow " +
                 "make up the difference of what you burn and what you eat.";
 

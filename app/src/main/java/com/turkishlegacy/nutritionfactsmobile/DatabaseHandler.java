@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.jar.Attributes;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    //Database name
+    //Database breakfastFoodName
     public static final String DATABASE_NAME = "database.db";
-    //table name
+    //table breakfastFoodName
     public static final String TABLE_NAME = "Facts";
     //column names
     public static final String COL_1 = "NAME";
@@ -102,13 +102,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public String searchData(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        //gonna get calories and quantity only
+        //gonna get breakfastFoodCalories and breakfastFoodQuantity only
         String[] columns = {COL_1, COL_2, COL_3};
-        //searching for name
+        //searching for breakfastFoodName
         Cursor cursor = db.query(TABLE_NAME, columns, COL_1 + "='" + name + "'", null, null, null, null);
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
-            //returning name quantity and calories
+            //returning breakfastFoodName breakfastFoodQuantity and breakfastFoodCalories
             int columnName = cursor.getColumnIndex(COL_1);
             int columnQuantity = cursor.getColumnIndex(COL_2);
             int columnCalories = cursor.getColumnIndex(COL_3);
@@ -127,7 +127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public String getName(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] columns = {COL_1, COL_2, COL_3, COL_4, COL_5, COL_6};
-        //searching for name
+        //searching for breakfastFoodName
         Cursor cursor = db.query(TABLE_NAME, columns, COL_1 + "='" + name + "'", null, null, null, null);
 
         if (cursor != null) {
@@ -142,11 +142,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public String getQuantity(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] columns = {COL_1, COL_2, COL_3, COL_4, COL_5, COL_6};
-        //searching for name to find quantity related to it
+        //searching for breakfastFoodName to find breakfastFoodQuantity related to it
         Cursor cursor = db.query(TABLE_NAME, columns, COL_1 + "='" + name + "'", null, null, null, null);
 
         if (cursor != null) {
-            //getting quantity from column 2
+            //getting breakfastFoodQuantity from column 2
             cursor.moveToFirst();
             String getQuantity = cursor.getString(1);
             return getQuantity;
@@ -158,11 +158,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public String getCalories(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] columns = {COL_1, COL_2, COL_3, COL_4, COL_5, COL_6};
-        //searching for name to find calories related to it
+        //searching for breakfastFoodName to find breakfastFoodCalories related to it
         Cursor cursor = db.query(TABLE_NAME, columns, COL_1 + "='" + name + "'", null, null, null, null);
 
         if (cursor != null) {
-            //getting calories from column 3
+            //getting breakfastFoodCalories from column 3
             cursor.moveToFirst();
             String getCalories = cursor.getString(2);
             return getCalories;
@@ -174,11 +174,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public String getProtein(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] columns = {COL_1, COL_2, COL_3, COL_4, COL_5, COL_6};
-        //searching for name to find calories related to it
+        //searching for breakfastFoodName to find breakfastFoodCalories related to it
         Cursor cursor = db.query(TABLE_NAME, columns, COL_1 + "='" + name + "'", null, null, null, null);
 
         if (cursor != null) {
-            //getting protein from column 4
+            //getting breakfastFoodProtein from column 4
             cursor.moveToFirst();
             String getProtein = cursor.getString(3);
             return getProtein;
@@ -190,11 +190,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public String getCarb(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] columns = {COL_1, COL_2, COL_3, COL_4, COL_5, COL_6};
-        //searching for name to find calories related to it
+        //searching for breakfastFoodName to find breakfastFoodCalories related to it
         Cursor cursor = db.query(TABLE_NAME, columns, COL_1 + "='" + name + "'", null, null, null, null);
 
         if (cursor != null) {
-            //getting carb from column 5
+            //getting breakfastFoodCarb from column 5
             cursor.moveToFirst();
             String getCarb = cursor.getString(4);
             return getCarb;
@@ -206,11 +206,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public String getFat(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] columns = {COL_1, COL_2, COL_3, COL_4, COL_5, COL_6};
-        //searching for name to find calories related to it
+        //searching for breakfastFoodName to find breakfastFoodCalories related to it
         Cursor cursor = db.query(TABLE_NAME, columns, COL_1 + "='" + name + "'", null, null, null, null);
 
         if (cursor != null) {
-            //getting fat from column 6
+            //getting breakfastFoodFat from column 6
             cursor.moveToFirst();
             String getFat = cursor.getString(5);
             return getFat;

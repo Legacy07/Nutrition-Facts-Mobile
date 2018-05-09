@@ -1,10 +1,7 @@
 package com.turkishlegacy.nutritionfactsmobile;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
 
 import com.turkishlegacy.nutritionfactsmobile.database.DatabaseHandler;
 
@@ -22,19 +18,40 @@ public class Main extends AppCompatActivity
     //database class
     DatabaseHandler db;
     //variables to hold information from search fragment and pass this to nutrition summary fragment
-    public String name = "";
-    public String quantity = "";
-    public String calories = "";
-    public String protein = "";
-    public String carb = "";
-    public String fat = "";
+    public String breakfastFoodName = "";
+    public String breakfastFoodQuantity = "";
+    public String breakfastFoodCalories = "";
+    public String breakfastFoodProtein = "";
+    public String breakfastFoodCarb = "";
+    public String breakfastFoodFat = "";
+    ///////////////////////////////
+    public String lunchFoodName = "";
+    public String lunchFoodQuantity = "";
+    public String lunchFoodCalories = "";
+    public String lunchFoodProtein = "";
+    public String lunchFoodCarb = "";
+    public String lunchFoodFat = "";
+    ////////////////////////////
+    public String dinnerFoodName = "";
+    public String dinnerFoodQuantity = "";
+    public String dinnerFoodCalories = "";
+    public String dinnerFoodProtein = "";
+    public String dinnerFoodCarb = "";
+    public String dinnerFoodFat = "";
 
-    public String searchName = "";
-    public String searchQuantity = "";
-    public String searchCalories = "";
-    public String searchProtein = "";
-    public String searchCarb = "";
-    public String searchFat = "";
+//    public String searchName = "";
+//    public String searchQuantity = "";
+//    public String searchCalories = "";
+//    public String searchProtein = "";
+//    public String searchCarb = "";
+//    public String searchFat = "";
+
+    boolean isBreakfast = false;
+    boolean isLunch = false;
+    boolean isDinner = false;
+
+    SearchFragment searchFragment;
+    FoodNutritions_Fragment foodNutritions_fragment;
 
     //created automatically
     @Override
@@ -57,6 +74,14 @@ public class Main extends AppCompatActivity
 
         db = new DatabaseHandler(this);
 
+
+//        searchFragment = new SearchFragment();
+//        foodNutritions_fragment = new FoodNutritions_Fragment();
+
+
+//        FragmentManager fm = getSupportFragmentManager();
+//        searchFragment = (SearchFragment) fm.findFragmentById(R.id.search_fragment_layout);
+//        foodNutritions_fragment = (FoodNutritions_Fragment) fm.findFragmentById(R.id.fragment_food_nutritions);
     }
 
     //created automatically
@@ -162,104 +187,231 @@ public class Main extends AppCompatActivity
     }
 
     //getters and setters
-    public String getName() {
-        return this.name;
+    public String getBreakfastFoodName() {
+        return this.breakfastFoodName;
     }
 
-    public void setName(String sName) {
-        this.name = sName;
+    public void setBreakfastFoodName(String sName) {
+        this.breakfastFoodName = sName;
     }
 
-    public String getQuantity() {
-        return this.quantity;
+    public String getBreakfastFoodQuantity() {
+        return this.breakfastFoodQuantity;
     }
 
-    public void setQuantity(String sQuantity) {
-        this.quantity = sQuantity;
+    public void setBreakfastFoodQuantity(String sQuantity) {
+        this.breakfastFoodQuantity = sQuantity;
     }
 
-    public String getCalories() {
-        return this.calories;
+    public String getBreakfastFoodCalories() {
+        return this.breakfastFoodCalories;
     }
 
-    public void setCalories(String sCalories) {
-        this.calories = sCalories;
+    public void setBreakfastFoodCalories(String sCalories) {
+        this.breakfastFoodCalories = sCalories;
     }
 
-    public String getProtein() {
-        return this.protein;
+    public String getBreakfastFoodProtein() {
+        return this.breakfastFoodProtein;
     }
 
-    public void setProtein(String sProtein) {
-        this.protein = sProtein;
+    public void setBreakfastFoodProtein(String sProtein) {
+        this.breakfastFoodProtein = sProtein;
     }
 
-    public String getCarb() {
-        return this.carb;
+    public String getBreakfastFoodCarb() {
+        return this.breakfastFoodCarb;
     }
 
-    public void setCarb(String sCarb) {
-        this.carb = sCarb;
+    public void setBreakfastFoodCarb(String sCarb) {
+        this.breakfastFoodCarb = sCarb;
     }
 
-    public String getFat() {
-        return this.fat;
+    public String getBreakfastFoodFat() {
+        return this.breakfastFoodFat;
     }
 
-    public void setFat(String sFat) {
-        this.fat = sFat;
+    public void setBreakfastFoodFat(String sFat) {
+        this.breakfastFoodFat = sFat;
     }
 
-
-    //getters and setters
-    public String getSearchName() {
-        return this.searchName;
+    ////////////////////////////////////////////////////////
+    public String getLunchFoodName() {
+        return this.lunchFoodName;
     }
 
-    public void setSearchName(String sName) {
-        this.searchName = sName;
+    public void setLunchFoodName(String sName) {
+        this.lunchFoodName = sName;
     }
 
-    public String getSearchQuantity() {
-        return this.searchQuantity;
+    public String getLunchFoodQuantity() {
+        return this.lunchFoodQuantity;
     }
 
-    public void setSearchQuantity(String sQuantity) {
-        this.searchQuantity = sQuantity;
+    public void setLunchFoodQuantity(String sQuantity) {
+        this.lunchFoodQuantity = sQuantity;
     }
 
-    public String getSearchCalories() {
-        return this.searchCalories;
+    public String getLunchFoodCalories() {
+        return this.lunchFoodCalories;
     }
 
-    public void setSearchCalories(String sCalories) {
-        this.searchCalories = sCalories;
+    public void setLunchFoodCalories(String sCalories) {
+        this.lunchFoodCalories = sCalories;
     }
 
-    public String getSearchProtein() {
-        return this.searchProtein;
+    public String getLunchFoodProtein() {
+        return this.lunchFoodProtein;
     }
 
-    public void setSearchProtein(String sProtein) {
-        this.searchProtein = sProtein;
+    public void setLunchFoodProtein(String sProtein) {
+        this.lunchFoodProtein = sProtein;
     }
 
-    public String getSearchCarb() {
-        return this.searchCarb;
+    public String getLunchFoodCarb() {
+        return this.lunchFoodCarb;
     }
 
-    public void setSearchCarb(String sCarb) {
-        this.searchCarb = sCarb;
+    public void setLunchFoodCarb(String sCarb) {
+        this.lunchFoodCarb = sCarb;
     }
 
-    public String getSearchFat() {
-        return this.searchFat;
+    public String getLunchFoodFat() {
+        return this.lunchFoodFat;
     }
 
-    public void setSearchFat(String sFat) {
-        this.searchFat = sFat;
+    public void setLunchFoodFat(String sFat) {
+        this.lunchFoodFat = sFat;
     }
 
+    ///////////////////////////////////////////////////
+
+    public String getDinnerFoodName() {
+        return this.dinnerFoodName;
+    }
+
+    public void setDinnerFoodName(String sName) {
+        this.dinnerFoodName = sName;
+    }
+
+    public String getDinnerFoodQuantity() {
+        return this.dinnerFoodQuantity;
+    }
+
+    public void setDinnerFoodQuantity(String sQuantity) {
+        this.dinnerFoodQuantity = sQuantity;
+    }
+
+    public String getDinnerFoodCalories() {
+        return this.dinnerFoodCalories;
+    }
+
+    public void setDinnerFoodCalories(String sCalories) {
+        this.dinnerFoodCalories = sCalories;
+    }
+
+    public String getDinnerFoodProtein() {
+        return this.dinnerFoodProtein;
+    }
+
+    public void setDinnerFoodProtein(String sProtein) {
+        this.dinnerFoodProtein = sProtein;
+    }
+
+    public String getDinnerFoodCarb() {
+        return this.dinnerFoodCarb;
+    }
+
+    public void setDinnerFoodCarb(String sCarb) {
+        this.dinnerFoodCarb = sCarb;
+    }
+
+    public String getDinnerFoodFat() {
+        return this.dinnerFoodFat;
+    }
+
+    public void setDinnerFoodFat(String sFat) {
+        this.dinnerFoodFat = sFat;
+    }
+
+    /////////////////////////////////////////////////////
+    public void setIsBreakfast(Boolean isBreakfast) {
+        this.isBreakfast = isBreakfast;
+    }
+
+    public Boolean getIsBreakfast() {
+        return this.isBreakfast;
+    }
+
+    public void setIsLunch(Boolean isLunch) {
+        this.isLunch = isLunch;
+    }
+
+    public Boolean getIsLunch() {
+        return this.isLunch;
+    }
+
+    public void setIsDinner(Boolean isDinner) {
+        this.isDinner = isDinner;
+    }
+
+    public Boolean getIsDinner() {
+        return this.isDinner;
+    }
+
+///////////////////////////////////////////////////////////
+//    //getters and setters
+//    public String getSearchName() {
+//        return this.searchName;
+//    }
+//
+//    public void setSearchName(String sName) {
+//        this.searchName = sName;
+//    }
+//
+//    public String getSearchQuantity() {
+//        return this.searchQuantity;
+//    }
+//
+//    public void setSearchQuantity(String sQuantity) {
+//        this.searchQuantity = sQuantity;
+//    }
+//
+//    public String getSearchCalories() {
+//        return this.searchCalories;
+//    }
+//
+//    public void setSearchCalories(String sCalories) {
+//        this.searchCalories = sCalories;
+//    }
+//
+//    public String getSearchProtein() {
+//        return this.searchProtein;
+//    }
+//
+//    public void setSearchProtein(String sProtein) {
+//        this.searchProtein = sProtein;
+//    }
+//
+//    public String getSearchCarb() {
+//        return this.searchCarb;
+//    }
+//
+//    public void setSearchCarb(String sCarb) {
+//        this.searchCarb = sCarb;
+//    }
+//
+//    public String getSearchFat() {
+//        return this.searchFat;
+//    }
+//
+//    public void setSearchFat(String sFat) {
+//        this.searchFat = sFat;
+//    }
 
 
+//    @Override
+//    public void setNameInterface(String sName) {
+//        foodNutritions_fragment.updateName(sName);
+//    }
 }
