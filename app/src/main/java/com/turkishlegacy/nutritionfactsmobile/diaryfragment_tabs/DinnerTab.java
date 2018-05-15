@@ -168,7 +168,7 @@ public class DinnerTab extends Fragment {
                 SearchFragment searchFragment = new SearchFragment();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 //replacing the fragment inside the layout
-                manager.beginTransaction().replace(R.id.layout_Fragment, searchFragment).commit();
+                manager.beginTransaction().replace(R.id.content_layout, searchFragment).commit();
             }
 
         });

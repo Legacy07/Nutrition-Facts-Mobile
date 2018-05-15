@@ -2,9 +2,7 @@ package com.turkishlegacy.nutritionfactsmobile;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.icu.util.IslamicCalendar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -114,7 +112,7 @@ public class SearchFragment extends Fragment {
                     //opens the nutrition summary Fragment
                     FragmentManager manager = getActivity().getSupportFragmentManager();
                     //replacing the fragment inside the layout
-                    manager.beginTransaction().replace(R.id.layout_Fragment, foodNutritions_fragment).commit();
+                    manager.beginTransaction().replace(R.id.content_layout, foodNutritions_fragment).commit();
 
                 } catch (Exception exc) {
                     exc.printStackTrace();

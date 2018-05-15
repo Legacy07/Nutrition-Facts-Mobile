@@ -13,12 +13,9 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.TabHost;
 
-import com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.*;
-import com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.DinnerTab;
-import com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.LunchTab;
 import com.turkishlegacy.nutritionfactsmobile.listviewadaptors.TabsFragmentAdapter;
 import com.turkishlegacy.nutritionfactsmobile.nutritionsummary_tabs.CaloriesFragmentTab;
-import com.turkishlegacy.nutritionfactsmobile.nutritionsummary_tabs.MacrosFragmentTab;
+import com.turkishlegacy.nutritionfactsmobile.nutritionsummary_tabs.ChartsFragmentTab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +75,7 @@ public class NutritionSummary_Fragment extends Fragment implements ViewPager.OnP
         //the list created to put fragments in a view pager
         List<Fragment> listFragments = new ArrayList<Fragment>();
         listFragments.add(new CaloriesFragmentTab());
-        listFragments.add(new MacrosFragmentTab());
+        listFragments.add(new ChartsFragmentTab());
         //view pager applies from the adapter
         //getchildfragment manager allows fragments to not be blank after a back press.
         TabsFragmentAdapter tabsFragmentAdapter = new TabsFragmentAdapter(getChildFragmentManager(), listFragments);

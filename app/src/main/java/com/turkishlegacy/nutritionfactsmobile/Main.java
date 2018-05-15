@@ -146,14 +146,14 @@ public class Main extends AppCompatActivity
             DiaryFragment diaryFragment = new DiaryFragment();
             FragmentManager manager = getSupportFragmentManager();
             //replacing the fragment inside the layout
-            manager.beginTransaction().replace(R.id.layout_Fragment, diaryFragment).commit();
+            manager.beginTransaction().replace(R.id.content_layout, diaryFragment).commit();
 
         } else if (id == R.id.nav_NutritionSummary) {
             //opens the nutrition summary Fragment
             NutritionSummary_Fragment nutritionSummary_fragment = new NutritionSummary_Fragment();
             FragmentManager manager = getSupportFragmentManager();
             //replacing the fragment inside the layout
-            manager.beginTransaction().replace(R.id.layout_Fragment, nutritionSummary_fragment).commit();
+            manager.beginTransaction().replace(R.id.content_layout, nutritionSummary_fragment).commit();
 
         } else if (id == R.id.nav_BMRCalculator) {
 
@@ -161,7 +161,7 @@ public class Main extends AppCompatActivity
             CalculateBMR_Fragment calculateBMR_fragment = new CalculateBMR_Fragment();
             FragmentManager manager = getSupportFragmentManager();
             //replacing the fragment inside the layout
-            manager.beginTransaction().replace(R.id.layout_Fragment, calculateBMR_fragment).commit();
+            manager.beginTransaction().replace(R.id.content_layout, calculateBMR_fragment).commit();
 
 
         } else if (id == R.id.nav_AddFood) {
@@ -169,7 +169,7 @@ public class Main extends AppCompatActivity
             AddFood_Fragment addFood_fragment = new AddFood_Fragment();
             FragmentManager manager = getSupportFragmentManager();
             //replacing the fragment inside the layout
-            manager.beginTransaction().replace(R.id.layout_Fragment, addFood_fragment).commit();
+            manager.beginTransaction().replace(R.id.content_layout, addFood_fragment).commit();
 
 
         } else if (id == R.id.nav_ImportExport) {
@@ -177,7 +177,7 @@ public class Main extends AppCompatActivity
             ImportExportDatabase_Fragment importExportDatabase_fragment = new ImportExportDatabase_Fragment();
             FragmentManager manager = getSupportFragmentManager();
             //replacing the fragment inside the layout
-            manager.beginTransaction().replace(R.id.layout_Fragment, importExportDatabase_fragment).commit();
+            manager.beginTransaction().replace(R.id.content_layout, importExportDatabase_fragment).commit();
 
         }
 

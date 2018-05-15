@@ -3,6 +3,7 @@ package com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,19 +11,27 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.turkishlegacy.nutritionfactsmobile.Main;
+import com.turkishlegacy.nutritionfactsmobile.NutritionSummary_Fragment;
 import com.turkishlegacy.nutritionfactsmobile.R;
 import com.turkishlegacy.nutritionfactsmobile.SearchFragment;
 import com.turkishlegacy.nutritionfactsmobile.listviewadaptors.TabsCustomListViewAdaptor;
 import com.turkishlegacy.nutritionfactsmobile.model.AllFoodsinTabs;
+import com.turkishlegacy.nutritionfactsmobile.nutritionsummary_tabs.CaloriesFragmentTab;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -125,8 +134,36 @@ public class BreakfastTab extends Fragment {
             }
         });
 
+//        sendNutrients();
+        //showing the button in action bar
+        setHasOptionsMenu(true);
         return view;
     }
+
+    //inflating the menu on action bar within fragment
+    @Override
+    public void onCreateOptionsMenu(
+            Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.diary_menu, menu);
+    }
+
+    //action bar button options
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            //when add button is selected it adds the values of text boxes in breakfast tab
+            case R.id.diaryActionBarItem:
+                sendNutrients();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 
     public void gotoSearchFragment() {
         //event listener for add button
@@ -139,7 +176,7 @@ public class BreakfastTab extends Fragment {
                 SearchFragment searchFragment = new SearchFragment();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 //replacing the fragment inside the layout
-                manager.beginTransaction().replace(R.id.layout_Fragment, searchFragment).commit();
+                manager.beginTransaction().replace(R.id.content_layout, searchFragment).commit();
             }
 
         });
@@ -218,6 +255,67 @@ public class BreakfastTab extends Fragment {
 
         }
 
+    }
+
+    //gathers data from every listview item and sends to calories fragment to output in total
+    public void sendNutrients() {
+
+        int iCalories = 0;
+        String sCalories = "";
+        String replacedCalories = "";
+
+        int iProtein = 0;
+        String sProtein = "";
+        String replacedProtein = "";
+
+        int iCarb = 0;
+        String sCarb = "";
+        String replacedCarb = "";
+
+        int iFat = 0;
+        String sFat = "";
+        String replacedFat = "";
+
+        //go through the list
+        for (int i = 0; i < allFoodsList.size(); i++) {
+            //get calories from every listview item of the calories textview
+            View view1 = listViewLv.getChildAt(i);
+            //initiate the text views
+            TextView caloriesText = (TextView) view1.findViewById(R.id.tabsListviewCalorie);
+            TextView proteinText = (TextView) view1.findViewById(R.id.tabsListviewProtein);
+            TextView carbText = (TextView) view1.findViewById(R.id.tabsListviewCarb);
+            TextView fatText = (TextView) view1.findViewById(R.id.tabsListviewFat);
+
+            //get the text from the fields
+            sCalories = caloriesText.getText().toString();
+            sProtein = proteinText.getText().toString();
+            sCarb = carbText.getText().toString();
+            sFat = fatText.getText().toString();
+
+            //only pull out the numbers
+            replacedCalories = sCalories.substring(0, sCalories.length() - 9);
+            replacedProtein = sProtein.substring(0, sProtein.length() - 17);
+            replacedCarb = sCarb.substring(0, sCarb.length() - 15);
+            replacedFat = sFat.substring(0, sFat.length() - 13);
+
+            //add it to total for each nutrient
+            iCalories = iCalories + Integer.parseInt(replacedCalories);
+            iProtein = iProtein + Integer.parseInt(replacedProtein);
+            iCarb = iCarb + Integer.parseInt(replacedCarb);
+            iFat = iFat + Integer.parseInt(replacedFat);
+
+            //send the value via bundle
+            Bundle bundle = new Bundle();
+            bundle.putInt("Calories", iCalories);
+            bundle.putInt("Protein", iProtein);
+            bundle.putInt("Carb", iCarb);
+            bundle.putInt("Fat", iFat);
+
+            Intent intent = getActivity().getIntent();
+            intent.putExtras(bundle);
+
+            Toast.makeText(getActivity(),"Added to Nutrition Summary", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
