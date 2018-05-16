@@ -3,6 +3,7 @@ package com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +11,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -46,7 +51,10 @@ public class DinnerTab extends Fragment {
     SharedPreferences sharedPreferences = null;
     SharedPreferences.Editor editor = null;
 
-
+    int iCalories;
+    int iProtein;
+    int iCarb;
+    int iFat;
     public DinnerTab() {
     }
 
@@ -112,6 +120,12 @@ public class DinnerTab extends Fragment {
                         main.setDinnerFoodFat("");
                         main.setDinnerFoodCarb("");
 
+                        //clear intent extras
+                        getActivity().getIntent().removeExtra("Calories");
+                        getActivity().getIntent().removeExtra("Protein");
+                        getActivity().getIntent().removeExtra("Carb");
+                        getActivity().getIntent().removeExtra("Fat");
+
                         dialog.dismiss();
 
                         Toast.makeText(getActivity(), "Cleared!", Toast.LENGTH_SHORT).show();
@@ -128,10 +142,35 @@ public class DinnerTab extends Fragment {
 
             }
         });
-
+        setHasOptionsMenu(true);
         return view;
     }
 
+    //inflating the menu on action bar within fragment
+    @Override
+    public void onCreateOptionsMenu(
+            Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.diary_menu, menu);
+    }
+
+    //action bar button options
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            //when add button is selected it adds the values from each list view item and sends to Calories fragment
+            case R.id.diaryActionBarItem:
+                sendNutrients();
+                Toast.makeText(getActivity(), "Added to Nutrition Summary", Toast.LENGTH_SHORT).show();
+
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -216,8 +255,9 @@ public class DinnerTab extends Fragment {
         }
 
     }
+
     //store the list in shared prefs
-    private void storeList(){
+    private void storeList() {
         //initialise shared preferences
         sharedPreferences = getActivity().getSharedPreferences("dinner shared preferences", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -246,5 +286,66 @@ public class DinnerTab extends Fragment {
 
         }
 
+    }
+
+    //gathers data from every listview item and sends to calories fragment to output in total
+    public void sendNutrients() {
+        iCalories = 0;
+        iProtein = 0;
+        iCarb = 0;
+        iFat = 0;
+
+        String sCalories = "";
+        String replacedCalories = "";
+
+        String sProtein = "";
+        String replacedProtein = "";
+
+        String sCarb = "";
+        String replacedCarb = "";
+
+        String sFat = "";
+        String replacedFat = "";
+
+        //go through the list
+        for (int i = 0; i < allFoodsList.size(); i++) {
+            //get calories from every listview item of the calories textview
+            View view1 = listViewLv.getChildAt(i);
+            //initiate the text views
+            TextView caloriesText = (TextView) view1.findViewById(R.id.tabsListviewCalorie);
+            TextView proteinText = (TextView) view1.findViewById(R.id.tabsListviewProtein);
+            TextView carbText = (TextView) view1.findViewById(R.id.tabsListviewCarb);
+            TextView fatText = (TextView) view1.findViewById(R.id.tabsListviewFat);
+
+            //get the text from the fields
+            sCalories = caloriesText.getText().toString();
+            sProtein = proteinText.getText().toString();
+            sCarb = carbText.getText().toString();
+            sFat = fatText.getText().toString();
+
+            //only pull out the numbers
+            replacedCalories = sCalories.substring(0, sCalories.length() - 9);
+            replacedProtein = sProtein.substring(0, sProtein.length() - 17);
+            replacedCarb = sCarb.substring(0, sCarb.length() - 15);
+            replacedFat = sFat.substring(0, sFat.length() - 13);
+
+            //add it to total for each nutrient
+            iCalories = iCalories + Integer.parseInt(replacedCalories);
+            iProtein = iProtein + Integer.parseInt(replacedProtein);
+            iCarb = iCarb + Integer.parseInt(replacedCarb);
+            iFat = iFat + Integer.parseInt(replacedFat);
+
+            //send the value via bundle
+            Bundle bundle = new Bundle();
+            bundle.putInt("Dinner Calories", iCalories);
+            bundle.putInt("Dinner Protein", iProtein);
+            bundle.putInt("Dinner Carb", iCarb);
+            bundle.putInt("Dinner Fat", iFat);
+
+            Intent intent = getActivity().getIntent();
+            intent.putExtras(bundle);
+
+            Toast.makeText(getActivity(), "Added to Nutrition Summary", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +28,7 @@ import com.turkishlegacy.nutritionfactsmobile.Main;
 import com.turkishlegacy.nutritionfactsmobile.NutritionSummary_Fragment;
 import com.turkishlegacy.nutritionfactsmobile.R;
 import com.turkishlegacy.nutritionfactsmobile.SearchFragment;
+import com.turkishlegacy.nutritionfactsmobile.SendNutrients;
 import com.turkishlegacy.nutritionfactsmobile.listviewadaptors.TabsCustomListViewAdaptor;
 import com.turkishlegacy.nutritionfactsmobile.model.AllFoodsinTabs;
 import com.turkishlegacy.nutritionfactsmobile.nutritionsummary_tabs.CaloriesFragmentTab;
@@ -52,6 +54,13 @@ public class BreakfastTab extends Fragment {
     //shared prefs
     SharedPreferences sharedPreferences = null;
     SharedPreferences.Editor editor = null;
+
+    int iCalories;
+    int iProtein;
+    int iCarb;
+    int iFat;
+
+    SendNutrients sendNutrients;
 
     public BreakfastTab() {
     }
@@ -117,6 +126,12 @@ public class BreakfastTab extends Fragment {
                         main.setBreakfastFoodFat("");
                         main.setBreakfastFoodCarb("");
 
+                        //clear intent extras
+                        getActivity().getIntent().removeExtra("Calories");
+                        getActivity().getIntent().removeExtra("Protein");
+                        getActivity().getIntent().removeExtra("Carb");
+                        getActivity().getIntent().removeExtra("Fat");
+
                         dialog.dismiss();
 
                         Toast.makeText(getActivity(), "Cleared!", Toast.LENGTH_SHORT).show();
@@ -134,7 +149,7 @@ public class BreakfastTab extends Fragment {
             }
         });
 
-//        sendNutrients();
+        sendNutrients = new SendNutrients();
         //showing the button in action bar
         setHasOptionsMenu(true);
         return view;
@@ -151,9 +166,26 @@ public class BreakfastTab extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //when add button is selected it adds the values of text boxes in breakfast tab
+            //when add button is selected it adds the values from each list view item and sends to Calories fragment
             case R.id.diaryActionBarItem:
                 sendNutrients();
+                Toast.makeText(getActivity(), "Added to Nutrition Summary", Toast.LENGTH_SHORT).show();
+
+                //doesnt send the data, no errors but it doesnt change the values in calories fragment
+//                sendNutrients.send(iCalories, iProtein, iCarb, iFat, allFoodsList, listViewLv);
+//
+//                //send the value via bundle
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("Calories", iCalories);
+//                bundle.putInt("Protein", iProtein);
+//                bundle.putInt("Carb", iCarb);
+//                bundle.putInt("Fat", iFat);
+//
+//                Intent intent = getActivity().getIntent();
+//                intent.putExtras(bundle);
+//
+//                Toast.makeText(getActivity(), "Added to Nutrition Summary", Toast.LENGTH_SHORT).show();
+
                 return true;
 
             default:
@@ -259,20 +291,20 @@ public class BreakfastTab extends Fragment {
 
     //gathers data from every listview item and sends to calories fragment to output in total
     public void sendNutrients() {
+        iCalories = 0;
+        iProtein = 0;
+        iCarb = 0;
+        iFat = 0;
 
-        int iCalories = 0;
         String sCalories = "";
         String replacedCalories = "";
 
-        int iProtein = 0;
         String sProtein = "";
         String replacedProtein = "";
 
-        int iCarb = 0;
         String sCarb = "";
         String replacedCarb = "";
 
-        int iFat = 0;
         String sFat = "";
         String replacedFat = "";
 
@@ -314,7 +346,7 @@ public class BreakfastTab extends Fragment {
             Intent intent = getActivity().getIntent();
             intent.putExtras(bundle);
 
-            Toast.makeText(getActivity(),"Added to Nutrition Summary", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Added to Nutrition Summary", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -342,4 +374,5 @@ public class BreakfastTab extends Fragment {
         builder.setMessage(Message);
         builder.show();
     }
+
 }

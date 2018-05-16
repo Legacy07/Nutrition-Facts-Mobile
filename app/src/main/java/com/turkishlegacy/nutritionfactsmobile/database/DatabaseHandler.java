@@ -27,6 +27,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    // watch server database course -- https://stackskills.com/courses/enrolled/68758
+    // look at this -- https://softwareengineering.stackexchange.com/questions/206310/data-synchronization-in-mobile-apps-multiple-devices-multiple-users
     @Override
     public void onCreate(SQLiteDatabase db) {
         //execute sql to create columns within a table
@@ -115,6 +117,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return buffer.toString();
 
     }
+
     //this is used to search data for listview
     public Cursor getCursorName(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -128,6 +131,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         c = db.query(TABLE_NAME, columns, null, null, null, null, null);
         return c;
     }
+
     //method to get breakfastFoodName which is column 1
     public String getName(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -144,6 +148,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
 
     }
+
     //method to retrieve breakfastFoodQuantity
     public String getQuantity(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -160,6 +165,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
 
     }
+
     //method to retrieve breakfastFoodCalories
     public String getCalories(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -176,6 +182,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
 
     }
+
     //method to retrieve breakfastFoodProtein
     public String getProtein(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -192,6 +199,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
 
     }
+
     //method to retrieve breakfastFoodCarb
     public String getCarb(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -208,6 +216,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
 
     }
+
     //method to retrieve breakfastFoodFat
     public String getFat(String name) {
         SQLiteDatabase db = this.getWritableDatabase();

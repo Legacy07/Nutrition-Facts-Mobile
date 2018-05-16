@@ -10,14 +10,10 @@ import android.view.ViewGroup;
 import com.turkishlegacy.nutritionfactsmobile.R;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ChartsFragmentTab extends Fragment {
 
 
     public ChartsFragmentTab() {
-        // Required empty public constructor
     }
 
 
@@ -25,7 +21,9 @@ public class ChartsFragmentTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_charts_fragment_tab, container, false);
+        View view = inflater.inflate(R.layout.fragment_charts_fragment_tab, container, false);
+
+        return view;
     }
 
 }

@@ -49,6 +49,8 @@ public class FoodNutritions_Fragment extends Fragment {
     private String quantityText;
     private String nameText;
 
+    Calorie_Breakdown calorie_breakdown;
+
     public FoodNutritions_Fragment() {
     }
 
@@ -59,6 +61,7 @@ public class FoodNutritions_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_food_nutritions, container, false);
 
         db = new DatabaseHandler(getActivity());
+        calorie_breakdown = new Calorie_Breakdown();
 
         //initialisations
         nameTextBoxVariable = (EditText) view.findViewById(R.id.foodNutritionNameTextBox);
@@ -267,21 +270,18 @@ public class FoodNutritions_Fragment extends Fragment {
     public void CalculateCalorieBreakdown(String fat, String carb, String protein, String calories) {
         //Calorie breakdown in breakfastFoodFat, breakfastFoodProtein and carbs.
         //First we get the nutritions in breakfastFoodCalories then acquire the percentage of it
-        double fatCalories = Calorie_Breakdown.fatToCalories(Double.parseDouble(fat));
-        double totalFatPercentage = Calorie_Breakdown.caloriesInFat(fatCalories, Double.parseDouble(calories));
+        double fatCalories = calorie_breakdown.fatToCalories(Double.parseDouble(fat));
+        double totalFatPercentage = calorie_breakdown.caloriesInFat(fatCalories, Double.parseDouble(calories));
         doubleTotalFatPercentage = Math.round(totalFatPercentage);
 
-        double carbCalories = Calorie_Breakdown.carbToCalories(Double.parseDouble(carb));
-        double totalCarbPercentage = Calorie_Breakdown.caloriesInCarb(carbCalories, Double.parseDouble(calories));
+        double carbCalories = calorie_breakdown.carbToCalories(Double.parseDouble(carb));
+        double totalCarbPercentage = calorie_breakdown.caloriesInCarb(carbCalories, Double.parseDouble(calories));
         doubleTotalCarbPercentage = Math.round(totalCarbPercentage);
 
-        double proteinCalories = Calorie_Breakdown.proteinToCalories(Double.parseDouble(protein));
-        double totalProteinPercentage = Calorie_Breakdown.caloriesinProtein(proteinCalories, Double.parseDouble(calories));
+        double proteinCalories = calorie_breakdown.proteinToCalories(Double.parseDouble(protein));
+        double totalProteinPercentage = calorie_breakdown.caloriesinProtein(proteinCalories, Double.parseDouble(calories));
         doubleTotalProteinPercentage = Math.round(totalProteinPercentage);
 
     }
 
-    public void updateName(String name) {
-//        nameTextBoxVariable.setText(breakfastFoodName);
-    }
 }
