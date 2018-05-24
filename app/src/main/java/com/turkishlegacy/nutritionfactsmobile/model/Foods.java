@@ -6,6 +6,9 @@ public class Foods {
     String name;
     String calorie;
     String quantity;
+    String protein;
+    String fat;
+    String carb;
     int id;
 
     public Foods() {
@@ -33,6 +36,30 @@ public class Foods {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+
+    public String getProtein() {
+        return protein;
+    }
+
+    public void setProtein(String protein) {
+        this.protein = protein;
+    }
+
+    public String getCarb() {
+        return carb;
+    }
+
+    public void setCarb(String carb) {
+        this.carb = carb;
+    }
+
+    public String getFat() {
+        return fat;
+    }
+
+    public void setFat(String fat) {
+        this.fat = fat;
     }
 
     public int getId() {

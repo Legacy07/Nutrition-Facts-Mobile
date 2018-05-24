@@ -1,13 +1,19 @@
 package com.turkishlegacy.nutritionfactsmobile;
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +21,32 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
 import com.turkishlegacy.nutritionfactsmobile.database.DatabaseHandler;
 import com.turkishlegacy.nutritionfactsmobile.listviewadaptors.CustomListViewAdaptor;
 import com.turkishlegacy.nutritionfactsmobile.model.AllFoodsinTabs;
 import com.turkishlegacy.nutritionfactsmobile.model.Foods;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class SearchFragment extends Fragment {
 
 //    private ISearchFragment iSearchFragment;
 
-    EditText searchTextVariable;
+    EditText searchTextEditText;
     ImageButton searchButtonVariable;
     DatabaseHandler db;
     NutritionSummary_Fragment nutritionSummary_fragment;
@@ -35,7 +54,8 @@ public class SearchFragment extends Fragment {
     ListView listViewLv;
     CustomListViewAdaptor adaptor;
     ArrayList<Foods> foodsArrayList = new ArrayList<>();
-
+    //create a list for filtering
+    ArrayList<Foods> filteredList = new ArrayList<>();
     AllFoodsinTabs allFoodsinTabs = new AllFoodsinTabs();
 
     public String name = "";
@@ -45,6 +65,11 @@ public class SearchFragment extends Fragment {
     public String fat = "";
     public String quantity = "";
     Main main;
+
+    private RequestQueue requestQueue;
+    private ProgressDialog dialog;
+
+    Handler handler;
 
     public SearchFragment() {
     }
@@ -62,9 +87,13 @@ public class SearchFragment extends Fragment {
 
         db = new DatabaseHandler(getActivity());
 
-        searchTextVariable = (EditText) view.findViewById(R.id.searchTextBox);
+        searchTextEditText = (EditText) view.findViewById(R.id.searchTextBox);
         listViewLv = (ListView) view.findViewById(R.id.listView);
         adaptor = new CustomListViewAdaptor(getActivity(), foodsArrayList);
+
+        dialog = new ProgressDialog(getActivity());
+        handler = new Handler();
+
 
         listViewLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,35 +103,25 @@ public class SearchFragment extends Fragment {
                     main = (Main) getActivity();
 
                     String getNameText = foodsArrayList.get(position).getName();
-                    //gets the string from breakfastFoodName text box and by using the methods from database handler,
-                    // it gets the values by breakfastFoodName and set it in textbox of Nutrition Summary fragment.
-                    String setName = db.getName(getNameText);
-//                    main.setSearchName(setBreakfastFoodName);
+                    //gets the string from FoodName text box and by using the methods from database handler,
+                    // it gets the values by FoodName and set it in textbox of Nutrition Summary fragment.
+                    String setName = getNameText;
+                    String setCalorie = foodsArrayList.get(position).getCalorie();
+                    String setQuantity = foodsArrayList.get(position).getQuantity();
+                    String setProtein = foodsArrayList.get(position).getProtein();;
+                    String setCarb = foodsArrayList.get(position).getCarb();
+                    String setFat = foodsArrayList.get(position).getFat();
 
-                    String setCalorie = db.getCalories(getNameText);
-//                    main.setSearchCalories(setCalorie);
-
-                    String setQuantity = db.getQuantity(getNameText);
-//                    main.setSearchQuantity(setBreakfastFoodQuantity);
-
-                    String setProtein = db.getProtein(getNameText);
-//                    main.setSearchProtein(setBreakfastFoodProtein);
-
-                    String setCarb = db.getCarb(getNameText);
-//                    main.setSearchCarb(setBreakfastFoodCarb);
-
-                    String setFat = db.getFat(getNameText);
-//                    main.setSearchFat(setBreakfastFoodFat);
-
-//                    iSearchFragment.setNameInterface(setBreakfastFoodName);
+                    //trim calories and quantity because they contain text.
+                    String replacedCalories = setCalorie.substring(0, setCalorie.length() - 9);
+                    String replacedQuantity = setQuantity.substring(0, setQuantity.length() - 6);
 
                     FoodNutritions_Fragment foodNutritions_fragment = new FoodNutritions_Fragment();
                     //pass the data via bundle to food nutritions fragment
                     Bundle bundle = new Bundle();
-
                     bundle.putString("foodName", setName);
-                    bundle.putString("foodCalorie", setCalorie);
-                    bundle.putString("foodQuantity", setQuantity);
+                    bundle.putString("foodCalorie", replacedCalories);
+                    bundle.putString("foodQuantity", replacedQuantity);
                     bundle.putString("foodProtein", setProtein);
                     bundle.putString("foodCarb", setCarb);
                     bundle.putString("foodFat", setFat);
@@ -112,7 +131,7 @@ public class SearchFragment extends Fragment {
                     //opens the nutrition summary Fragment
                     FragmentManager manager = getActivity().getSupportFragmentManager();
                     //replacing the fragment inside the layout
-                    manager.beginTransaction().replace(R.id.content_layout, foodNutritions_fragment).commit();
+                    manager.beginTransaction().replace(R.id.content_layout, foodNutritions_fragment).addToBackStack(null).commit();
 
                 } catch (Exception exc) {
                     exc.printStackTrace();
@@ -121,30 +140,34 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        searchButtonVariable = (ImageButton) view.findViewById(R.id.searchButton);
         Search(view);
 
+        new BackgroundTask().execute();
         //actionbar title change
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Search Foods");
         return view;
     }
 
     public void Search(View view) {
-        searchButtonVariable.setOnClickListener(new View.OnClickListener() {
+
+//        String getNameText = searchTextEditText.getText().toString();
+
+        searchTextEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                try {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                    String getNameText = searchTextVariable.getText().toString();
-                    showMeals(getNameText);
+            }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    showMessage("Error", e.getMessage());
-                }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filterFoods(s.toString());
             }
         });
-
     }
 
     //check if the interface is implemented
@@ -172,36 +195,22 @@ public class SearchFragment extends Fragment {
         builder.show();
     }
 
-    private void showMeals(String food) {
-        foodsArrayList.clear();
-        DatabaseHandler db = new DatabaseHandler(getActivity());
-
-        Foods f = null;
-        Cursor c = db.getCursorName(food);
-        try {
-            while (c.moveToNext()) {
-                int id = c.getInt(0);
-                //getting the values from the columns
-                String name = c.getString(0);
-                String quantity = c.getString(1);
-                String calorie = c.getString(2);
-                f = new Foods();
-                f.setId(id);
-                //once the values are gathered, its passed to setter methods.
-                f.setName(name);
-                f.setQuantity(quantity + " Grams");
-                f.setCalorie(calorie + " Calories");
-                //add it to array list to hold the information
-                foodsArrayList.add(f);
+    //filter foods
+    public void filterFoods(String food) {
+        filteredList.clear();
+        //iterate through the array list
+        for (Foods foods : foodsArrayList) {
+            //if name of the food is within the arraylist then add it to the filtered arraylist
+            if (foods.getName().toLowerCase().contains(food.toLowerCase())) {
+                filteredList.add(foods);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            showMessage("Error", e.getMessage());
         }
-        listViewLv.setAdapter(adaptor);
+
+        adaptor.filterList(filteredList);
 
     }
 
+    //}
     @Override
     public void onPause() {
         super.onPause();
@@ -215,5 +224,98 @@ public class SearchFragment extends Fragment {
 //        if (main.getIsDinner() == true) {
 //            main.setIsDinner(false);
 //        }
+    }
+
+    //parse json data
+    private void parseJSON() {
+        //get the data from url
+        String url = "https://deadmanwalking2007.000webhostapp.com/json_data.php";
+        //request json objects
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        foodsArrayList.clear();
+
+                        Foods f = null;
+                        try {
+                            //get the table
+                            JSONArray jsonArray = response.getJSONArray("Nutrients");
+                            //iterate through json array to pull the data
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject foods = jsonArray.getJSONObject(i);
+
+                                String name = foods.getString("FoodName");
+                                String quantity = foods.getString("ServingSize");
+                                String calorie = foods.getString("Calories");
+                                String protein = foods.getString("Protein");
+                                String carb = foods.getString("Carb");
+                                String fat = foods.getString("Fat");
+
+                                f = new Foods();
+                                //add to foods model
+                                f.setName(name);
+                                f.setQuantity(quantity + " Grams");
+                                f.setCalorie(calorie + " Calories");
+                                f.setProtein(protein);
+                                f.setCarb(carb);
+                                f.setFat(fat);
+                                //add it to array list to hold the information
+                                foodsArrayList.add(f);
+                            }
+                            //set the adaptor for listview
+                            listViewLv.setAdapter(adaptor);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(request);
+    }
+    private class BackgroundTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                if (!dialog.isShowing()) {
+                    dialog.setMessage("Loading...");
+                    dialog.setCancelable(true);
+                    dialog.show();
+                }
+
+            } catch (Exception e) {
+                Log.d("Progress Dialog Error: ", e.getMessage());
+            }
+
+        }
+
+        protected Void doInBackground(Void... args) {
+
+            requestQueue = Volley.newRequestQueue(getActivity());
+            parseJSON();
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        }
     }
 }

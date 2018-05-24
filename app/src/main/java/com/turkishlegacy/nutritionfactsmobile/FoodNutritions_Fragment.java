@@ -170,7 +170,7 @@ public class FoodNutritions_Fragment extends Fragment {
                 DiaryFragment diaryFragment = new DiaryFragment();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 //replacing the fragment inside the layout
-                manager.beginTransaction().replace(R.id.content_layout, diaryFragment).commit();
+                manager.beginTransaction().replace(R.id.content_layout, diaryFragment).addToBackStack(null).commit();
 
             case R.id.generateChart:
 

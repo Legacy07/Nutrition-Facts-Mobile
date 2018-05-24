@@ -206,7 +206,7 @@ public class LunchTab extends Fragment {
                 SearchFragment searchFragment = new SearchFragment();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 //replacing the fragment inside the layout
-                manager.beginTransaction().replace(R.id.content_layout, searchFragment).commit();
+                manager.beginTransaction().replace(R.id.content_layout, searchFragment).addToBackStack(null).commit();
             }
 
         });

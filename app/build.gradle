@@ -24,6 +24,7 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    implementation 'com.android.volley:volley:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.4'
     implementation 'com.android.support:appcompat-v7:26.+'
     implementation 'com.android.support:design:26.+'

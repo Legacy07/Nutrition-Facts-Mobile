@@ -146,14 +146,14 @@ public class Main extends AppCompatActivity
             DiaryFragment diaryFragment = new DiaryFragment();
             FragmentManager manager = getSupportFragmentManager();
             //replacing the fragment inside the layout
-            manager.beginTransaction().replace(R.id.content_layout, diaryFragment).commit();
+            manager.beginTransaction().replace(R.id.content_layout, diaryFragment).addToBackStack(null).commit();
 
         } else if (id == R.id.nav_NutritionSummary) {
             //opens the nutrition summary Fragment
             NutritionSummary_Fragment nutritionSummary_fragment = new NutritionSummary_Fragment();
             FragmentManager manager = getSupportFragmentManager();
             //replacing the fragment inside the layout
-            manager.beginTransaction().replace(R.id.content_layout, nutritionSummary_fragment).commit();
+            manager.beginTransaction().replace(R.id.content_layout, nutritionSummary_fragment).addToBackStack(null).commit();
 
         } else if (id == R.id.nav_BMRCalculator) {
 
@@ -161,7 +161,7 @@ public class Main extends AppCompatActivity
             CalculateBMR_Fragment calculateBMR_fragment = new CalculateBMR_Fragment();
             FragmentManager manager = getSupportFragmentManager();
             //replacing the fragment inside the layout
-            manager.beginTransaction().replace(R.id.content_layout, calculateBMR_fragment).commit();
+            manager.beginTransaction().replace(R.id.content_layout, calculateBMR_fragment).addToBackStack(null).commit();
 
 
         } else if (id == R.id.nav_AddFood) {

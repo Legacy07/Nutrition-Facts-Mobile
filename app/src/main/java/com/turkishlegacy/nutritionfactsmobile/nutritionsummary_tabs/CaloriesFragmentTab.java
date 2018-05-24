@@ -19,9 +19,7 @@ import com.turkishlegacy.nutritionfactsmobile.MacrosCalculation;
 import com.turkishlegacy.nutritionfactsmobile.R;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class CaloriesFragmentTab extends Fragment {
 
     TextView totalCalorieFiguresTextView, goalCaloriesEditText, remainingCaloriesTextView, proteinTotalTextView,
