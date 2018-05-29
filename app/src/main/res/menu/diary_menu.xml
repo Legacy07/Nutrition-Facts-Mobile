@@ -5,7 +5,6 @@
 
     <item
         android:id="@+id/diaryActionBarItem"
-        android:icon="@drawable/ic_calculate_bmr"
-        android:title="Add the Total"
+        android:title="Clear All"
         app:showAsAction="ifRoom|withText" />
 </menu>

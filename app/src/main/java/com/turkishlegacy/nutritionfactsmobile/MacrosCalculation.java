@@ -5,29 +5,29 @@ public class MacrosCalculation {
     public MacrosCalculation() {
     }
 
-    public int calories(int total, int goal) {
-        int remaining = 0;
+    public double calories(double total, double goal) {
+        double remaining = 0;
         remaining = goal - total;
 
         return remaining;
     }
 
-    public int protein(int total, int goal) {
-        int remaining = 0;
+    public double protein(double total, double goal) {
+        double remaining = 0;
         remaining = goal - total;
 
         return remaining;
     }
 
-    public int carb(int total, int goal) {
-        int remaining = 0;
+    public double carb(double total, double goal) {
+        double remaining = 0;
         remaining = goal - total;
 
         return remaining;
     }
 
-    public int fat(int total, int goal) {
-        int remaining = 0;
+    public double fat(double total, double goal) {
+        double remaining = 0;
         remaining = goal - total;
 
         return remaining;

@@ -2,6 +2,7 @@ package com.turkishlegacy.nutritionfactsmobile;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -144,6 +145,16 @@ public class FoodNutritions_Fragment extends Fragment {
                     main.setBreakfastFoodProtein(proteinText);
                     main.setBreakfastFoodQuantity(quantityText);
 
+                    //send the values to nutrition summary via bundle
+                    Bundle bundle = new Bundle();
+                    bundle.putDouble("Calories", Double.parseDouble(caloriesText));
+                    bundle.putDouble("Protein", Double.parseDouble(proteinText));
+                    bundle.putDouble("Carb", Double.parseDouble(carbText));
+                    bundle.putDouble("Fat", Double.parseDouble(fatText));
+
+                    Intent intent = getActivity().getIntent();
+                    intent.putExtras(bundle);
+
                     main.setIsBreakfast(false);
                 } else if (main.getIsLunch() == true) {
 
@@ -154,6 +165,16 @@ public class FoodNutritions_Fragment extends Fragment {
                     main.setLunchFoodProtein(proteinText);
                     main.setLunchFoodQuantity(quantityText);
 
+                    //send the values to nutrition summary via bundle
+                    Bundle bundle = new Bundle();
+                    bundle.putDouble("Lunch Calories", Double.parseDouble(caloriesText));
+                    bundle.putDouble("Lunch Protein", Double.parseDouble(proteinText));
+                    bundle.putDouble("Lunch Carb", Double.parseDouble(carbText));
+                    bundle.putDouble("Lunch Fat", Double.parseDouble(fatText));
+
+                    Intent intent = getActivity().getIntent();
+                    intent.putExtras(bundle);
+
                     main.setIsLunch(false);
                 } else if (main.getIsDinner() == true) {
 
@@ -163,6 +184,16 @@ public class FoodNutritions_Fragment extends Fragment {
                     main.setDinnerFoodFat(fatText);
                     main.setDinnerFoodProtein(proteinText);
                     main.setDinnerFoodQuantity(quantityText);
+
+                    //send the values to nutrition summary via bundle
+                    Bundle bundle = new Bundle();
+                    bundle.putDouble("Dinner Calories", Double.parseDouble(caloriesText));
+                    bundle.putDouble("Dinner Protein", Double.parseDouble(proteinText));
+                    bundle.putDouble("Dinner Carb", Double.parseDouble(carbText));
+                    bundle.putDouble("Dinner Fat", Double.parseDouble(fatText));
+
+                    Intent intent = getActivity().getIntent();
+                    intent.putExtras(bundle);
 
                     main.setIsDinner(false);
                 }

@@ -67,7 +67,7 @@ public class SearchFragment extends Fragment {
     Main main;
 
     private RequestQueue requestQueue;
-    private ProgressDialog dialog;
+    ProgressDialog dialog;
 
     Handler handler;
 
@@ -94,7 +94,6 @@ public class SearchFragment extends Fragment {
         dialog = new ProgressDialog(getActivity());
         handler = new Handler();
 
-
         listViewLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -108,7 +107,8 @@ public class SearchFragment extends Fragment {
                     String setName = getNameText;
                     String setCalorie = foodsArrayList.get(position).getCalorie();
                     String setQuantity = foodsArrayList.get(position).getQuantity();
-                    String setProtein = foodsArrayList.get(position).getProtein();;
+                    String setProtein = foodsArrayList.get(position).getProtein();
+                    ;
                     String setCarb = foodsArrayList.get(position).getCarb();
                     String setFat = foodsArrayList.get(position).getFat();
 
@@ -139,6 +139,18 @@ public class SearchFragment extends Fragment {
                 }
             }
         });
+
+//        try {
+////            if (!dialog.isShowing()) {
+//                dialog.setMessage("Loading...");
+//                dialog.setCancelable(true);
+//                dialog.show();
+////            }
+//
+//        } catch (Exception e) {
+//            Log.d("Progress Dialog Error: ", e.getMessage());
+//        }
+
 
         Search(view);
 
@@ -280,17 +292,18 @@ public class SearchFragment extends Fragment {
 
         requestQueue.add(request);
     }
+
     private class BackgroundTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             try {
-                if (!dialog.isShowing()) {
-                    dialog.setMessage("Loading...");
-                    dialog.setCancelable(true);
-                    dialog.show();
-                }
+//                if (!dialog.isShowing()) {
+                dialog.setMessage("Loading...");
+                dialog.setCancelable(true);
+                dialog.show();
+//                }
 
             } catch (Exception e) {
                 Log.d("Progress Dialog Error: ", e.getMessage());
@@ -313,9 +326,9 @@ public class SearchFragment extends Fragment {
 
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            if (dialog != null && dialog.isShowing()) {
-                dialog.dismiss();
-            }
+//            if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+//            }
         }
     }
 }

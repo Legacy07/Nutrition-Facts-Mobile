@@ -58,4 +58,24 @@ public class SendNutrients {
         }
         return iCalories + iProtein + iCarb + iFat;
     }
+
+//    public int sendN(String sCalories, String sProtein, String sCarb, String sFat) {
+//        String replacedCalories = "";
+//
+//        String replacedProtein = "";
+//
+//        String replacedCarb = "";
+//
+//        String replacedFat = "";
+//
+//        only pull out the numbers
+//        replacedCalories = sCalories.substring(0, sCalories.length() - 9);
+//        replacedProtein = sProtein.substring(0, sProtein.length() - 17);
+//        replacedCarb = sCarb.substring(0, sCarb.length() - 15);
+//        replacedFat = sFat.substring(0, sFat.length() - 13);
+//
+//        return iCalories + iProtein + iCarb + iFat;
+//    }
+//
+//
 }

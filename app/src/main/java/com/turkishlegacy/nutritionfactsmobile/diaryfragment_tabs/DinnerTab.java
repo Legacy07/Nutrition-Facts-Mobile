@@ -159,7 +159,7 @@ public class DinnerTab extends Fragment {
         switch (item.getItemId()) {
             //when add button is selected it adds the values from each list view item and sends to Calories fragment
             case R.id.diaryActionBarItem:
-                sendNutrients();
+//                sendNutrients();
                 Toast.makeText(getActivity(), "Added to Nutrition Summary", Toast.LENGTH_SHORT).show();
 
                 return true;

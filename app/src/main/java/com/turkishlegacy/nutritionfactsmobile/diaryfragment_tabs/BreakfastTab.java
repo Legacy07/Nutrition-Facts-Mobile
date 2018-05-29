@@ -168,23 +168,77 @@ public class BreakfastTab extends Fragment {
         switch (item.getItemId()) {
             //when add button is selected it adds the values from each list view item and sends to Calories fragment
             case R.id.diaryActionBarItem:
-                sendNutrients();
-                Toast.makeText(getActivity(), "Added to Nutrition Summary", Toast.LENGTH_SHORT).show();
 
-                //doesnt send the data, no errors but it doesnt change the values in calories fragment
-//                sendNutrients.send(iCalories, iProtein, iCarb, iFat, allFoodsList, listViewLv);
-//
-//                //send the value via bundle
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("Calories", iCalories);
-//                bundle.putInt("Protein", iProtein);
-//                bundle.putInt("Carb", iCarb);
-//                bundle.putInt("Fat", iFat);
-//
-//                Intent intent = getActivity().getIntent();
-//                intent.putExtras(bundle);
-//
-//                Toast.makeText(getActivity(), "Added to Nutrition Summary", Toast.LENGTH_SHORT).show();
+                //confirm
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setTitle("Confirmation");
+                builder.setMessage("Are you sure you want to clear all meals?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        //clear shared prefs
+                        editor.clear();
+                        editor.commit();
+
+                        //clear arraylist
+                        allFoodsList.clear();
+                        //clear list view
+                        listViewLv.setAdapter(null);
+                        adaptor.notifyDataSetChanged();
+                        //clear fields
+                        main.setBreakfastFoodName("");
+                        main.setBreakfastFoodQuantity("");
+                        main.setBreakfastFoodCalories("");
+                        main.setBreakfastFoodProtein("");
+                        main.setBreakfastFoodFat("");
+                        main.setBreakfastFoodCarb("");
+
+                        main.setLunchFoodName("");
+                        main.setLunchFoodQuantity("");
+                        main.setLunchFoodCalories("");
+                        main.setLunchFoodProtein("");
+                        main.setLunchFoodFat("");
+                        main.setLunchFoodCarb("");
+
+                        main.setDinnerFoodName("");
+                        main.setDinnerFoodQuantity("");
+                        main.setDinnerFoodCalories("");
+                        main.setDinnerFoodProtein("");
+                        main.setDinnerFoodFat("");
+                        main.setDinnerFoodCarb("");
+
+                        //clear intent extras
+                        getActivity().getIntent().removeExtra("Calories");
+                        getActivity().getIntent().removeExtra("Protein");
+                        getActivity().getIntent().removeExtra("Carb");
+                        getActivity().getIntent().removeExtra("Fat");
+
+                        getActivity().getIntent().removeExtra("Lunch Calories");
+                        getActivity().getIntent().removeExtra("Lunch Protein");
+                        getActivity().getIntent().removeExtra("Lunch Carb");
+                        getActivity().getIntent().removeExtra("Lunch Fat");
+
+                        getActivity().getIntent().removeExtra("Dinner Calories");
+                        getActivity().getIntent().removeExtra("Dinner Protein");
+                        getActivity().getIntent().removeExtra("Dinner Carb");
+                        getActivity().getIntent().removeExtra("Dinner Fat");
+
+                        dialog.dismiss();
+
+                        Toast.makeText(getActivity(), "Cleared!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
 
                 return true;
 
