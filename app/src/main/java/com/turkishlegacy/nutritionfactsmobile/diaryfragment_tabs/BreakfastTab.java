@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.turkishlegacy.nutritionfactsmobile.Clear;
 import com.turkishlegacy.nutritionfactsmobile.Main;
 import com.turkishlegacy.nutritionfactsmobile.NutritionSummary_Fragment;
 import com.turkishlegacy.nutritionfactsmobile.R;
@@ -151,7 +152,7 @@ public class BreakfastTab extends Fragment {
 
         sendNutrients = new SendNutrients();
         //showing the button in action bar
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         return view;
     }
 
@@ -182,49 +183,8 @@ public class BreakfastTab extends Fragment {
                         editor.clear();
                         editor.commit();
 
-                        //clear arraylist
-                        allFoodsList.clear();
-                        //clear list view
-                        listViewLv.setAdapter(null);
-                        adaptor.notifyDataSetChanged();
-                        //clear fields
-                        main.setBreakfastFoodName("");
-                        main.setBreakfastFoodQuantity("");
-                        main.setBreakfastFoodCalories("");
-                        main.setBreakfastFoodProtein("");
-                        main.setBreakfastFoodFat("");
-                        main.setBreakfastFoodCarb("");
-
-                        main.setLunchFoodName("");
-                        main.setLunchFoodQuantity("");
-                        main.setLunchFoodCalories("");
-                        main.setLunchFoodProtein("");
-                        main.setLunchFoodFat("");
-                        main.setLunchFoodCarb("");
-
-                        main.setDinnerFoodName("");
-                        main.setDinnerFoodQuantity("");
-                        main.setDinnerFoodCalories("");
-                        main.setDinnerFoodProtein("");
-                        main.setDinnerFoodFat("");
-                        main.setDinnerFoodCarb("");
-
-                        //clear intent extras
-                        getActivity().getIntent().removeExtra("Calories");
-                        getActivity().getIntent().removeExtra("Protein");
-                        getActivity().getIntent().removeExtra("Carb");
-                        getActivity().getIntent().removeExtra("Fat");
-
-                        getActivity().getIntent().removeExtra("Lunch Calories");
-                        getActivity().getIntent().removeExtra("Lunch Protein");
-                        getActivity().getIntent().removeExtra("Lunch Carb");
-                        getActivity().getIntent().removeExtra("Lunch Fat");
-
-                        getActivity().getIntent().removeExtra("Dinner Calories");
-                        getActivity().getIntent().removeExtra("Dinner Protein");
-                        getActivity().getIntent().removeExtra("Dinner Carb");
-                        getActivity().getIntent().removeExtra("Dinner Fat");
-
+                        Clear clear = new Clear();
+                        clear.clearAll(allFoodsList, listViewLv, adaptor);
                         dialog.dismiss();
 
                         Toast.makeText(getActivity(), "Cleared!", Toast.LENGTH_SHORT).show();

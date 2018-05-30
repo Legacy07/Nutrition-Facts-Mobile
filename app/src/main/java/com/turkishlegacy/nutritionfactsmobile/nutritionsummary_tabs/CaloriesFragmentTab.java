@@ -36,18 +36,25 @@ public class CaloriesFragmentTab extends Fragment {
     private double doubleTotalCarbPercentage;
     private double doubleTotalFatPercentage;
 
-    double breakfastCaloriesTotal;
+    public static double breakfastCaloriesTotal;
     double breakfastProteinTotal;
     double breakfastCarbTotal;
     double breakfastFatTotal;
-    double lunchCaloriesTotal;
+
+    public static double lunchCaloriesTotal;
     double lunchProteinTotal;
     double lunchCarbTotal;
     double lunchFatTotal;
-    double dinnerCaloriesTotal;
+
+    public static double dinnerCaloriesTotal;
     double dinnerProteinTotal;
     double dinnerCarbTotal;
     double dinnerFatTotal;
+
+    double calculateMealCalories;
+    double calculateMealProtein;
+    double calculateMealCarb;
+    double calculateMealFat;
 
     //shared prefs
     SharedPreferences sharedPreferences = null;
@@ -87,21 +94,28 @@ public class CaloriesFragmentTab extends Fragment {
         macrosCalculation = new MacrosCalculation();
         calorie_breakdown = new Calorie_Breakdown();
 
+        sharedPreferences = getActivity().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
+
+//        if (sharedPreferences.getString("breakfastCalories", null) != null){
+//            breakfastCaloriesTotal = Double.parseDouble(sharedPreferences.getString("breakfastCalories", null));
+//        }
 
         Intent intent = getActivity().getIntent();
         //check if the data is passed
         if (intent.hasExtra("Calories") || intent.hasExtra("Lunch Calories") || intent.hasExtra("Dinner Calories")) {
             //get data from breakfast, lunch and dinner fragments
             try {
-//                sharedPreferences = getActivity().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
-//                editor = sharedPreferences.edit();
-//
+                Bundle bundle = getActivity().getIntent().getExtras();
+                sharedPreferences = getActivity().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+
 //                editor.putString("breakfastCalories", String.valueOf(breakfastCaloriesTotal));
 //                editor.apply();
-//                Double.parseDouble(sharedPreferences.getString("breakfastCalories", null));
 
-                Bundle bundle = getActivity().getIntent().getExtras();
                 breakfastCaloriesTotal = breakfastCaloriesTotal + bundle.getDouble("Calories");
+//                editor.putString("breakfastCalories", String.valueOf(breakfastCaloriesTotal));
+//                editor.apply();
+
                 breakfastProteinTotal = breakfastProteinTotal + bundle.getDouble("Protein");
                 breakfastCarbTotal = breakfastCarbTotal + bundle.getDouble("Carb");
                 breakfastFatTotal = breakfastFatTotal + bundle.getDouble("Fat");
@@ -115,14 +129,37 @@ public class CaloriesFragmentTab extends Fragment {
                 dinnerProteinTotal = dinnerProteinTotal + bundle.getDouble("Dinner Protein");
                 dinnerCarbTotal = dinnerCarbTotal + bundle.getDouble("Dinner Carb");
                 dinnerFatTotal = dinnerFatTotal + bundle.getDouble("Dinner Fat");
+
             } catch (Exception e) {
                 Log.d("Error in getting bundle", e.getMessage());
             }
+//            //remove intents after to avoid self adding
+//            getActivity().getIntent().removeExtra("Calories");
+//            getActivity().getIntent().removeExtra("Protein");
+//            getActivity().getIntent().removeExtra("Carb");
+//            getActivity().getIntent().removeExtra("Fat");
+//
+//            getActivity().getIntent().removeExtra("Lunch Calories");
+//            getActivity().getIntent().removeExtra("Lunch Protein");
+//            getActivity().getIntent().removeExtra("Lunch Carb");
+//            getActivity().getIntent().removeExtra("Lunch Fat");
+//
+//            getActivity().getIntent().removeExtra("Dinner Calories");
+//            getActivity().getIntent().removeExtra("Dinner Protein");
+//            getActivity().getIntent().removeExtra("Dinner Carb");
+//            getActivity().getIntent().removeExtra("Dinner Fat");
+
+//            editor.putString("calculateMealCalories", String.valueOf(calculateMealCalories));
+//            editor.apply();
+
             //calculate the total form breakfast,lunch and dinner
-            double calculateMealCalories = breakfastCaloriesTotal + lunchCaloriesTotal + dinnerCaloriesTotal;
-            double calculateMealProtein = breakfastProteinTotal + lunchProteinTotal + dinnerProteinTotal;
-            double calculateMealCarb = breakfastCarbTotal + lunchCarbTotal + dinnerCarbTotal;
-            double calculateMealFat = breakfastFatTotal + lunchFatTotal + dinnerFatTotal;
+            calculateMealCalories = breakfastCaloriesTotal + lunchCaloriesTotal + dinnerCaloriesTotal;
+            calculateMealProtein = breakfastProteinTotal + lunchProteinTotal + dinnerProteinTotal;
+            calculateMealCarb = breakfastCarbTotal + lunchCarbTotal + dinnerCarbTotal;
+            calculateMealFat = breakfastFatTotal + lunchFatTotal + dinnerFatTotal;
+
+//            editor.putString("calculateMealCalories", String.valueOf(calculateMealCalories));
+//            editor.apply();
 
             totalCalorieFiguresTextView.setText(String.valueOf(calculateMealCalories));
             proteinTotalTextView.setText(String.valueOf(calculateMealProtein));
@@ -158,10 +195,25 @@ public class CaloriesFragmentTab extends Fragment {
             calorieBreakdownCarbFiguresTextView.setText(Double.toString(doubleTotalCarbPercentage) + " %");
             calorieBreakdownFatFiguresTextView.setText(Double.toString(doubleTotalFatPercentage) + " %");
 
+            String proteinBreakdown = calorieBreakdownProteinFiguresTextView.getText().toString();
+            String carbBreakdown = calorieBreakdownCarbFiguresTextView.getText().toString();
+            String fatBreakdown = calorieBreakdownFatFiguresTextView.getText().toString();
+
+            String proteinPercentage = proteinBreakdown.substring(0, proteinBreakdown.length() - 2);
+            String carbPercentage = carbBreakdown.substring(0, carbBreakdown.length() - 2);
+            String fatPercentage = fatBreakdown.substring(0, fatBreakdown.length() - 2);
+
+            Bundle bundle2 = new Bundle();
+            bundle2.putFloat("ProteinPercentage", Float.parseFloat(proteinPercentage));
+            bundle2.putFloat("CarbPercentage", Float.parseFloat(carbPercentage));
+            bundle2.putFloat("FatPercentage", Float.parseFloat(fatPercentage));
+
+            Intent intent2 = getActivity().getIntent();
+            intent2.putExtras(bundle2);
+
         } else {
 
         }
-
         //showing the button in action bar
         setHasOptionsMenu(true);
         return view;

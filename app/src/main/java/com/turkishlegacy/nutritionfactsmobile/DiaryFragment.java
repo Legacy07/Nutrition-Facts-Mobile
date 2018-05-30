@@ -2,22 +2,31 @@ package com.turkishlegacy.nutritionfactsmobile;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.BreakfastTab;
 import com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.DinnerTab;
 import com.turkishlegacy.nutritionfactsmobile.diaryfragment_tabs.LunchTab;
+import com.turkishlegacy.nutritionfactsmobile.listviewadaptors.TabsCustomListViewAdaptor;
 import com.turkishlegacy.nutritionfactsmobile.listviewadaptors.TabsFragmentAdapter;
+import com.turkishlegacy.nutritionfactsmobile.model.AllFoodsinTabs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +39,11 @@ public class DiaryFragment extends Fragment implements ViewPager.OnPageChangeLis
     //creates tabs
     TabHost tabHost;
     protected View mView;
+
+    ListView listView;
+
+    TabsCustomListViewAdaptor adaptor;
+    ArrayList<AllFoodsinTabs> allFoodsList;
 
     // fake content for tabhost to ensure real content which the view pager will be shown
     private class FakeContent implements TabHost.TabContentFactory {
@@ -63,8 +77,69 @@ public class DiaryFragment extends Fragment implements ViewPager.OnPageChangeLis
         InitializeViewPager();
         //actionbar title change
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Diary");
+
+//
+//        listView = view.findViewById(R.id.listView);
+//
+//        allFoodsList = new ArrayList<>();
+
+//        adaptor = new TabsCustomListViewAdaptor(getActivity(), allFoodsList);
+
+        //showing the button in action bar
+        setHasOptionsMenu(true);
         return view;
     }
+
+    //inflating the menu on action bar within fragment
+//    @Override
+//    public void onCreateOptionsMenu(
+//            Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.diary_menu, menu);
+//    }
+//
+//    //action bar button options
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            //when add button is selected it adds the values from each list view item and sends to Calories fragment
+//            case R.id.diaryActionBarItem:
+//
+//                //confirm
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//
+//                builder.setTitle("Confirmation");
+//                builder.setMessage("Are you sure you want to clear all meals?");
+//
+//                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                        Clear clear = new Clear();
+//                        clear.clearAll(allFoodsList, listView, adaptor);
+//                        dialog.dismiss();
+//
+//                        Toast.makeText(getActivity(), "Cleared!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                    }
+//                });
+//                AlertDialog alert = builder.create();
+//                alert.show();
+//
+//
+//                return true;
+//
+//            default:
+//                // If we got here, the user's action was not recognized.
+//                // Invoke the superclass to handle it.
+//                return super.onOptionsItemSelected(item);
+//
+//        }
+//    }
 
     private void InitializeViewPager() {
         //initialising viewpager
@@ -106,6 +181,8 @@ public class DiaryFragment extends Fragment implements ViewPager.OnPageChangeLis
 
         }
         tabHost.setOnTabChangedListener(this);
+        tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab())
+                .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorBlack));
     }
 
     @Override
@@ -120,6 +197,13 @@ public class DiaryFragment extends Fragment implements ViewPager.OnPageChangeLis
                 - (hScrollView.getWidth() - tabView.getWidth()) / 2;
         hScrollView.smoothScrollTo(scrollPos, 0);
 
+//        change colour of selected tab
+        for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
+            tabHost.getTabWidget().getChildAt(i)
+                    .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+        }
+        tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab())
+                .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorBlack));
     }
 
     @Override
@@ -134,6 +218,7 @@ public class DiaryFragment extends Fragment implements ViewPager.OnPageChangeLis
     public void onPageSelected(int position) {
         this.tabHost.setCurrentTab(position);
     }
+
     //alert dialog message box
     public void showMessage(String title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

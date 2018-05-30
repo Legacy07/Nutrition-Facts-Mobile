@@ -155,6 +155,16 @@ public class FoodNutritions_Fragment extends Fragment {
                     Intent intent = getActivity().getIntent();
                     intent.putExtras(bundle);
 
+//                    getActivity().getIntent().removeExtra("Lunch Calories");
+//                    getActivity().getIntent().removeExtra("Lunch Protein");
+//                    getActivity().getIntent().removeExtra("Lunch Carb");
+//                    getActivity().getIntent().removeExtra("Lunch Fat");
+//
+//                    getActivity().getIntent().removeExtra("Dinner Calories");
+//                    getActivity().getIntent().removeExtra("Dinner Protein");
+//                    getActivity().getIntent().removeExtra("Dinner Carb");
+//                    getActivity().getIntent().removeExtra("Dinner Fat");
+
                     main.setIsBreakfast(false);
                 } else if (main.getIsLunch() == true) {
 
@@ -174,6 +184,16 @@ public class FoodNutritions_Fragment extends Fragment {
 
                     Intent intent = getActivity().getIntent();
                     intent.putExtras(bundle);
+//
+//                    getActivity().getIntent().removeExtra("Calories");
+//                    getActivity().getIntent().removeExtra("Protein");
+//                    getActivity().getIntent().removeExtra("Carb");
+//                    getActivity().getIntent().removeExtra("Fat");
+//
+//                    getActivity().getIntent().removeExtra("Dinner Calories");
+//                    getActivity().getIntent().removeExtra("Dinner Protein");
+//                    getActivity().getIntent().removeExtra("Dinner Carb");
+//                    getActivity().getIntent().removeExtra("Dinner Fat");
 
                     main.setIsLunch(false);
                 } else if (main.getIsDinner() == true) {
@@ -194,6 +214,16 @@ public class FoodNutritions_Fragment extends Fragment {
 
                     Intent intent = getActivity().getIntent();
                     intent.putExtras(bundle);
+
+//                    getActivity().getIntent().removeExtra("Lunch Calories");
+//                    getActivity().getIntent().removeExtra("Lunch Protein");
+//                    getActivity().getIntent().removeExtra("Lunch Carb");
+//                    getActivity().getIntent().removeExtra("Lunch Fat");
+//
+//                    getActivity().getIntent().removeExtra("Calories");
+//                    getActivity().getIntent().removeExtra("Protein");
+//                    getActivity().getIntent().removeExtra("Carb");
+//                    getActivity().getIntent().removeExtra("Fat");
 
                     main.setIsDinner(false);
                 }

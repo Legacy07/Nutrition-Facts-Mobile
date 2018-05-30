@@ -2,8 +2,11 @@ package com.turkishlegacy.nutritionfactsmobile;
 
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -107,6 +110,8 @@ public class NutritionSummary_Fragment extends Fragment implements ViewPager.OnP
             }
 
         }
+        tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab())
+                .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorBlack));
         tabHost.setOnTabChangedListener(this);
     }
 
@@ -122,6 +127,14 @@ public class NutritionSummary_Fragment extends Fragment implements ViewPager.OnP
                 - (hScrollView.getWidth() - tabView.getWidth()) / 2;
         hScrollView.smoothScrollTo(scrollPos, 0);
 
+//        change colour of selected tab
+        for(int i=0;i<tabHost.getTabWidget().getChildCount();i++)
+        {
+            tabHost.getTabWidget().getChildAt(i)
+                    .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+        }
+        tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab())
+                .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorBlack));
     }
 
     @Override

@@ -164,21 +164,6 @@ public class Main extends AppCompatActivity
             manager.beginTransaction().replace(R.id.content_layout, calculateBMR_fragment).addToBackStack(null).commit();
 
 
-        } else if (id == R.id.nav_AddFood) {
-            //opens the add food Fragment
-            AddFood_Fragment addFood_fragment = new AddFood_Fragment();
-            FragmentManager manager = getSupportFragmentManager();
-            //replacing the fragment inside the layout
-            manager.beginTransaction().replace(R.id.content_layout, addFood_fragment).commit();
-
-
-        } else if (id == R.id.nav_ImportExport) {
-            //opens the import/export Database Fragment
-            ImportExportDatabase_Fragment importExportDatabase_fragment = new ImportExportDatabase_Fragment();
-            FragmentManager manager = getSupportFragmentManager();
-            //replacing the fragment inside the layout
-            manager.beginTransaction().replace(R.id.content_layout, importExportDatabase_fragment).commit();
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

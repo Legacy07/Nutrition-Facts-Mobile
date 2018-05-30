@@ -20,17 +20,17 @@
             android:title="Calculate BMR" />
     </group>
 
-    <item android:title="Admin">
-        <menu>
-            <item
-                android:id="@+id/nav_AddFood"
-                android:icon="@drawable/add_event"
-                android:title="Add Food Type" />
-            <item
-                android:id="@+id/nav_ImportExport"
-                android:icon="@drawable/import_db"
-                android:title="Import/Export" />
-        </menu>
-    </item>
+    <!--<item android:title="Admin">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_AddFood"-->
+                <!--android:icon="@drawable/add_event"-->
+                <!--android:title="Add Food Type" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_ImportExport"-->
+                <!--android:icon="@drawable/import_db"-->
+                <!--android:title="Import/Export" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
 </menu>
