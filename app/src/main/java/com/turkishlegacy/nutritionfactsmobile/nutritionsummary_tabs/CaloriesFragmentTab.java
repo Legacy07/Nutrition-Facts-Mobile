@@ -21,7 +21,6 @@ import com.turkishlegacy.nutritionfactsmobile.MacrosCalculation;
 import com.turkishlegacy.nutritionfactsmobile.R;
 
 
-
 public class CaloriesFragmentTab extends Fragment {
 
     TextView totalCalorieFiguresTextView, goalCaloriesEditText, remainingCaloriesTextView, proteinTotalTextView,
@@ -36,29 +35,29 @@ public class CaloriesFragmentTab extends Fragment {
     private double doubleTotalCarbPercentage;
     private double doubleTotalFatPercentage;
 
-    public static double breakfastCaloriesTotal;
+    public double breakfastCaloriesTotal = 0;
     double breakfastProteinTotal;
     double breakfastCarbTotal;
     double breakfastFatTotal;
 
-    public static double lunchCaloriesTotal;
+    public double lunchCaloriesTotal;
     double lunchProteinTotal;
     double lunchCarbTotal;
     double lunchFatTotal;
 
-    public static double dinnerCaloriesTotal;
+    public double dinnerCaloriesTotal;
     double dinnerProteinTotal;
     double dinnerCarbTotal;
     double dinnerFatTotal;
 
-    double calculateMealCalories;
+    double calculateMealCalories = 0;
     double calculateMealProtein;
     double calculateMealCarb;
     double calculateMealFat;
 
     //shared prefs
-    SharedPreferences sharedPreferences = null;
-    SharedPreferences.Editor editor = null;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     public CaloriesFragmentTab() {
 
@@ -94,10 +93,16 @@ public class CaloriesFragmentTab extends Fragment {
         macrosCalculation = new MacrosCalculation();
         calorie_breakdown = new Calorie_Breakdown();
 
-        sharedPreferences = getActivity().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
+        sharedPreferences = getContext().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
 
-//        if (sharedPreferences.getString("breakfastCalories", null) != null){
+        editor = sharedPreferences.edit();
+//
+//        if (sharedPreferences.getString("breakfastCalories", null) == null) {
+//            editor.putString("breakfastCalories", String.valueOf(breakfastCaloriesTotal));
+//            editor.apply();
+//        } else {
 //            breakfastCaloriesTotal = Double.parseDouble(sharedPreferences.getString("breakfastCalories", null));
+//
 //        }
 
         Intent intent = getActivity().getIntent();
@@ -106,13 +111,8 @@ public class CaloriesFragmentTab extends Fragment {
             //get data from breakfast, lunch and dinner fragments
             try {
                 Bundle bundle = getActivity().getIntent().getExtras();
-                sharedPreferences = getActivity().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
-                editor = sharedPreferences.edit();
 
-//                editor.putString("breakfastCalories", String.valueOf(breakfastCaloriesTotal));
-//                editor.apply();
-
-                breakfastCaloriesTotal = breakfastCaloriesTotal + bundle.getDouble("Calories");
+                breakfastCaloriesTotal = bundle.getDouble("Calories");
 //                editor.putString("breakfastCalories", String.valueOf(breakfastCaloriesTotal));
 //                editor.apply();
 
@@ -133,6 +133,10 @@ public class CaloriesFragmentTab extends Fragment {
             } catch (Exception e) {
                 Log.d("Error in getting bundle", e.getMessage());
             }
+
+//            editor.putString("breakfastCalories", String.valueOf(breakfastCaloriesTotal));
+//            editor.apply();
+
 //            //remove intents after to avoid self adding
 //            getActivity().getIntent().removeExtra("Calories");
 //            getActivity().getIntent().removeExtra("Protein");
@@ -151,6 +155,15 @@ public class CaloriesFragmentTab extends Fragment {
 
 //            editor.putString("calculateMealCalories", String.valueOf(calculateMealCalories));
 //            editor.apply();
+//            calculateMealCalories = Double.parseDouble(sharedPreferences.getString("calculateMealCalories", null));
+
+            if (sharedPreferences.getString("calculateMealCalories", null) == null) {
+                editor.putString("calculateMealCalories", String.valueOf(calculateMealCalories));
+                editor.apply();
+            } else {
+                calculateMealCalories = Double.parseDouble(sharedPreferences.getString("calculateMealCalories", null));
+
+            }
 
             //calculate the total form breakfast,lunch and dinner
             calculateMealCalories = breakfastCaloriesTotal + lunchCaloriesTotal + dinnerCaloriesTotal;
@@ -158,8 +171,10 @@ public class CaloriesFragmentTab extends Fragment {
             calculateMealCarb = breakfastCarbTotal + lunchCarbTotal + dinnerCarbTotal;
             calculateMealFat = breakfastFatTotal + lunchFatTotal + dinnerFatTotal;
 
-//            editor.putString("calculateMealCalories", String.valueOf(calculateMealCalories));
-//            editor.apply();
+            editor.putString("calculateMealCalories", String.valueOf(calculateMealCalories));
+            editor.apply();
+
+//            calculateMealCalories = Double.parseDouble(sharedPreferences.getString("calculateMealCalories", "No name defined"));
 
             totalCalorieFiguresTextView.setText(String.valueOf(calculateMealCalories));
             proteinTotalTextView.setText(String.valueOf(calculateMealProtein));
@@ -207,6 +222,7 @@ public class CaloriesFragmentTab extends Fragment {
             bundle2.putFloat("ProteinPercentage", Float.parseFloat(proteinPercentage));
             bundle2.putFloat("CarbPercentage", Float.parseFloat(carbPercentage));
             bundle2.putFloat("FatPercentage", Float.parseFloat(fatPercentage));
+            bundle2.putFloat("TotalCalories", (float) calculateMealCalories);
 
             Intent intent2 = getActivity().getIntent();
             intent2.putExtras(bundle2);
@@ -243,6 +259,48 @@ public class CaloriesFragmentTab extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (sharedPreferences.getString("calculateMealCalories", null) == null) {
+            editor.putString("calculateMealCalories", String.valueOf(calculateMealCalories));
+            editor.apply();
+        } else {
+            calculateMealCalories = Double.parseDouble(sharedPreferences.getString("calculateMealCalories", null));
+
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //remove intents after to avoid self adding
+//        getActivity().getIntent().removeExtra("Calories");
+//        getActivity().getIntent().removeExtra("Protein");
+//        getActivity().getIntent().removeExtra("Carb");
+//        getActivity().getIntent().removeExtra("Fat");
+//
+//        getActivity().getIntent().removeExtra("Lunch Calories");
+//        getActivity().getIntent().removeExtra("Lunch Protein");
+//        getActivity().getIntent().removeExtra("Lunch Carb");
+//        getActivity().getIntent().removeExtra("Lunch Fat");
+//
+//        getActivity().getIntent().removeExtra("Dinner Calories");
+//        getActivity().getIntent().removeExtra("Dinner Protein");
+//        getActivity().getIntent().removeExtra("Dinner Carb");
+//        getActivity().getIntent().removeExtra("Dinner Fat");
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     public void showMessage(String title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

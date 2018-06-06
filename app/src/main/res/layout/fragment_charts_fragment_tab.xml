@@ -14,19 +14,25 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/idPieChart"
+        android:id="@+id/nutrientsPieChart"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
+    </com.github.mikephil.charting.charts.PieChart>
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/rdiPieChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nutrientsPieChart"
+        >
     </com.github.mikephil.charting.charts.PieChart>
 
 </android.support.constraint.ConstraintLayout>

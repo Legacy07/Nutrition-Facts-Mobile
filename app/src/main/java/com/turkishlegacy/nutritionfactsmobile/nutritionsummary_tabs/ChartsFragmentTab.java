@@ -10,18 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.turkishlegacy.nutritionfactsmobile.R;
 
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.highlight.Highlight;
 
 import java.util.ArrayList;
 
@@ -31,7 +28,10 @@ public class ChartsFragmentTab extends Fragment {
 
     private float[] percentageArray = new float[3];
     private String[] nutrientsArray = {"Protein", "Carbohydrate", "Fat"};
-    PieChart pieChart;
+
+    private float[] rdiPercentageArray = new float[2];
+    private String[] rdiArray = {"Calories", "RDI"};
+    PieChart nutrientsPieChart, rdiPieChart;
 
     public ChartsFragmentTab() {
     }
@@ -43,22 +43,27 @@ public class ChartsFragmentTab extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_charts_fragment_tab, container, false);
 
-        pieChart = (PieChart) view.findViewById(R.id.idPieChart);
+        nutrientsPieChart = (PieChart) view.findViewById(R.id.nutrientsPieChart);
+        rdiPieChart = (PieChart) view.findViewById(R.id.rdiPieChart);
 
-        //pieChart.setUsePercentValues(true);
-        //pieChart.setHoleColor(Color.BLUE);
-        //pieChart.setCenterTextColor(Color.BLACK);
-        pieChart.setHoleRadius(0F);
-        pieChart.setTransparentCircleAlpha(0);
-//        pieChart.setCenterText("Chart");
-//        pieChart.setCenterTextSize(10);
-        //pieChart.setDrawEntryLabels(true);
-        //pieChart.setEntryLabelTextSize(20);
+        //nutrientsPieChart.setUsePercentValues(true);
+        //nutrientsPieChart.setHoleColor(Color.BLUE);
+        //nutrientsPieChart.setCenterTextColor(Color.BLACK);
+        nutrientsPieChart.setHoleRadius(0F);
+        nutrientsPieChart.setTransparentCircleAlpha(0);
+
+        rdiPieChart.setHoleRadius(0F);
+        rdiPieChart.setTransparentCircleAlpha(0);
+//        nutrientsPieChart.setCenterText("Chart");
+//        nutrientsPieChart.setCenterTextSize(10);
+        //nutrientsPieChart.setDrawEntryLabels(true);
+        //nutrientsPieChart.setEntryLabelTextSize(20);
         //More options just check out the documentation!
 
-        addDataSet();
+        addNutrients();
+        addRDIPieChart();
 
-//        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//        nutrientsPieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
 //            @Override
 //            public void onValueSelected(Entry e, Highlight h) {
 //                Log.d(TAG, "onValueSelected: Value select from chart.");
@@ -86,8 +91,8 @@ public class ChartsFragmentTab extends Fragment {
         return view;
     }
 
-    private void addDataSet() {
-        Log.d(TAG, "addDataSet started");
+    private void addNutrients() {
+        Log.d(TAG, "addNutrients started");
         ArrayList<PieEntry> percentageArrayList = new ArrayList<>();
         ArrayList<String> nutrientsArrayList = new ArrayList<>();
 
@@ -127,14 +132,73 @@ public class ChartsFragmentTab extends Fragment {
             pieDataSet.setColors(colors);
 
             //add legend to chart
-            Legend legend = pieChart.getLegend();
+            Legend legend = nutrientsPieChart.getLegend();
             legend.setForm(Legend.LegendForm.CIRCLE);
             legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
 
             //create pie data object
             PieData pieData = new PieData(pieDataSet);
-            pieChart.setData(pieData);
-            pieChart.invalidate();
+            nutrientsPieChart.setData(pieData);
+            nutrientsPieChart.invalidate();
         }
+    }
+
+    private void addRDIPieChart() {
+        Log.d(TAG, "addNutrients started");
+        ArrayList<PieEntry> rdiPercentageArrayList = new ArrayList<>();
+        ArrayList<String> rdiArrayList = new ArrayList<>();
+
+        Intent intent = getActivity().getIntent();
+        //check if the data is passed
+        if (intent.hasExtra("TotalCalories")) {
+
+            Bundle bundle = getActivity().getIntent().getExtras();
+
+            float calories = bundle.getFloat("TotalCalories");
+//            float rdi = rdiCalculate(2000, calories);
+            float rdi = 2000 - calories;
+
+
+            rdiPercentageArray[0] = calories;
+            rdiPercentageArray[1] = rdi;
+
+            for (int i = 0; i < rdiPercentageArray.length; i++) {
+                rdiPercentageArrayList.add(new PieEntry(rdiPercentageArray[i], i));
+            }
+
+            for (int i = 1; i < nutrientsArray.length; i++) {
+                rdiArrayList.add(nutrientsArray[i]);
+            }
+
+            //create the data set
+            PieDataSet pieDataSet = new PieDataSet(rdiPercentageArrayList, "RDI");
+            pieDataSet.setSliceSpace(5);
+            pieDataSet.setValueTextSize(20);
+
+            //add colors to dataset
+            ArrayList<Integer> colors = new ArrayList<>();
+            colors.add(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            colors.add(ContextCompat.getColor(getContext(), R.color.colorLightGray));
+
+            pieDataSet.setColors(colors);
+
+            //add legend to chart
+            Legend legend = rdiPieChart.getLegend();
+            legend.setForm(Legend.LegendForm.CIRCLE);
+//            legend.setCustom(ColorTemplate.VORDIPLOM_COLORS, new String[] { "Calories", "RDI"});
+            legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+
+            //create pie data object
+            PieData pieData = new PieData(pieDataSet);
+            rdiPieChart.setData(pieData);
+            rdiPieChart.invalidate();
+        }
+    }
+
+    public float rdiCalculate(float rdi, float calories) {
+        //amount of calories divided by the recommended daily intake which gives the percentage
+        float percentage = (calories / rdi) * 100;
+        return percentage;
+
     }
 }
