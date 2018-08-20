@@ -14,23 +14,20 @@
             android:id="@+id/nav_NutritionSummary"
             android:icon="@drawable/pie_chart"
             android:title="Nutrition Summary" />
-        <item
-            android:id="@+id/nav_BMRCalculator"
-            android:icon="@drawable/ic_calculate_bmr"
-            android:title="Calculate BMR" />
+
     </group>
 
-    <!--<item android:title="Admin">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_AddFood"-->
-                <!--android:icon="@drawable/add_event"-->
-                <!--android:title="Add Food Type" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_ImportExport"-->
-                <!--android:icon="@drawable/import_db"-->
-                <!--android:title="Import/Export" />-->
-        <!--</menu>-->
-    <!--</item>-->
+    <item android:title="Measurements">
+        <menu>
+            <item
+                android:id="@+id/nav_BMRCalculator"
+                android:icon="@drawable/ic_calculate_bmr"
+                android:title="Calculate BMR" />
+            <item
+                android:id="@+id/nav_BodyMeasurement"
+                android:icon="@drawable/ic_measurement"
+                android:title="Body Measurement" />
+        </menu>
+    </item>
 
 </menu>

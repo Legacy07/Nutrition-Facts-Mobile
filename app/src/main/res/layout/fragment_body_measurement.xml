@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".BodyMeasurement">
+
+    <RelativeLayout
+        android:id="@+id/groupBoxLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/groupbox"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/chestSizeTextBox"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/chestSizeTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/chestLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/chestSizeTextBox"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorLightGray" />
+
+        <TextView
+            android:id="@+id/chestSizeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chestSizeTextBox"
+            android:layout_marginTop="5dp"
+            android:text="Chest Size"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/waistTextBox"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/chestSizeTextBox"
+            android:layout_below="@+id/chestLine"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/waistTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/waistTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chestLine"
+            android:layout_marginTop="15dp"
+            android:text="Waist Size"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/waistLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/waistTextBox"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorLightGray" />
+
+        <EditText
+            android:id="@+id/neckSizeTextBox"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/waistTextBox"
+            android:layout_below="@+id/waistLine"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/neckSizeTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/neckSizeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/waistLine"
+            android:layout_marginTop="15dp"
+            android:text="Neck Size"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/necksizeLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/neckSizeTextBox"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorLightGray" />
+
+        <EditText
+            android:id="@+id/leftArmRelaxedTextBox"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/necksizeLine"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/leftArmRelaxedTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/leftArmRelaxedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/necksizeLine"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/leftArmSizeTextView"
+            android:layout_alignLeft="@id/rightThighRelaxedTextView"
+
+            android:text="Relaxed"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/leftArmFlexedTextBox"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/necksizeLine"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/leftArmFlexedTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/leftArmFlexedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/necksizeLine"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/leftArmRelaxedTextBox"
+            android:text="Flexed"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/leftArmSizeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/necksizeLine"
+            android:layout_marginTop="15dp"
+            android:text="Left Arm Size - "
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/leftArmLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/leftArmSizeTextView"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorLightGray" />
+
+        <EditText
+            android:id="@+id/rightArmRelaxedTextBox"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/leftArmLine"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/rightArmRelaxedTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/rightArmRelaxedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/leftArmLine"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/rightArmSizeTextView"
+            android:layout_alignLeft="@id/rightThighRelaxedTextView"
+            android:text="Relaxed"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/rightArmFlexedTextBox"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/leftArmLine"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/rightArmFlexedTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/rightArmFlexedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/leftArmLine"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/leftArmRelaxedTextBox"
+            android:text="Flexed"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/rightArmSizeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/leftArmLine"
+            android:layout_marginTop="15dp"
+            android:text="Right Arm Size - "
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/rightArmLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/rightArmSizeTextView"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorLightGray" />
+
+        <EditText
+            android:id="@+id/leftThighRelaxedTextBox"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/rightArmLine"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/leftThighRelaxedTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/leftThighRelaxedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rightArmLine"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/leftThighSizeTextView"
+            android:layout_alignLeft="@id/rightThighRelaxedTextView"
+            android:text="Relaxed"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/leftThighFlexedTextBox"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/rightArmLine"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/leftThighFlexedTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/leftThighFlexedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rightArmLine"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/leftThighRelaxedTextBox"
+            android:text="Flexed"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/leftThighSizeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rightArmLine"
+            android:layout_marginTop="15dp"
+            android:text="Left Thigh Size - "
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <View
+            android:id="@+id/leftThighLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/leftThighSizeTextView"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorLightGray" />
+
+        <EditText
+            android:id="@+id/rightThighRelaxedTextBox"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/leftThighLine"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/rightThighRelaxedTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/rightThighRelaxedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/leftThighLine"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/rightThighSizeTextView"
+            android:text="Relaxed"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/rightThighFlexedTextBox"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/leftThighLine"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/rightThighFlexedTextView"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/rightThighFlexedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/leftThighLine"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/rightThighRelaxedTextBox"
+            android:text="Flexed"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/rightThighSizeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/leftThighLine"
+            android:layout_marginTop="15dp"
+            android:text="Right Thigh Size - "
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:typeface="serif" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rightThighSizeTextView"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            android:typeface="serif" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/groupBoxbanner2Layout"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        app:layout_constraintTop_toBottomOf="@id/groupBoxLayout"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/banner_groupbox"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous Measurements"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/groupBox2Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/groupbox"
+        app:layout_constraintTop_toBottomOf="@id/groupBoxbanner2Layout"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!--for previous body measurements-->
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ListView>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

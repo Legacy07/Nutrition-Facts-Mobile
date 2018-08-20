@@ -81,7 +81,7 @@
             android:layout_height="1dp"
             android:layout_below="@id/heightTextBox"
             android:layout_marginTop="10dp"
-            android:background="@color/colorWhiteSmoke" />
+            android:background="@color/colorLightGray" />
 
         <EditText
             android:id="@+id/ageTextBox"

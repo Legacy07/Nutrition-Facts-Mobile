@@ -147,6 +147,7 @@ public class FoodNutritions_Fragment extends Fragment {
 
                     //send the values to nutrition summary via bundle
                     Bundle bundle = new Bundle();
+                    bundle.putString("FoodName", nameText);
                     bundle.putDouble("Calories", Double.parseDouble(caloriesText));
                     bundle.putDouble("Protein", Double.parseDouble(proteinText));
                     bundle.putDouble("Carb", Double.parseDouble(carbText));
@@ -177,6 +178,7 @@ public class FoodNutritions_Fragment extends Fragment {
 
                     //send the values to nutrition summary via bundle
                     Bundle bundle = new Bundle();
+                    bundle.putString("Lunch FoodName", nameText);
                     bundle.putDouble("Lunch Calories", Double.parseDouble(caloriesText));
                     bundle.putDouble("Lunch Protein", Double.parseDouble(proteinText));
                     bundle.putDouble("Lunch Carb", Double.parseDouble(carbText));
@@ -207,6 +209,7 @@ public class FoodNutritions_Fragment extends Fragment {
 
                     //send the values to nutrition summary via bundle
                     Bundle bundle = new Bundle();
+                    bundle.putString("Dinner FoodName", nameText);
                     bundle.putDouble("Dinner Calories", Double.parseDouble(caloriesText));
                     bundle.putDouble("Dinner Protein", Double.parseDouble(proteinText));
                     bundle.putDouble("Dinner Carb", Double.parseDouble(carbText));

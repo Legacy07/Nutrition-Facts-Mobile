@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.turkishlegacy.nutritionfactsmobile.Calorie_Breakdown;
 import com.turkishlegacy.nutritionfactsmobile.MacrosCalculation;
@@ -54,6 +55,11 @@ public class CaloriesFragmentTab extends Fragment {
     double calculateMealProtein;
     double calculateMealCarb;
     double calculateMealFat;
+
+    String breakfastFoodName = "breakfast";
+    String lunchFoodName = "lunch";
+    String dinnerFoodName = "dinner";
+    String tempFoodName = "Equals";
 
     //shared prefs
     SharedPreferences sharedPreferences;
@@ -112,6 +118,7 @@ public class CaloriesFragmentTab extends Fragment {
             try {
                 Bundle bundle = getActivity().getIntent().getExtras();
 
+                breakfastFoodName = bundle.getString("FoodName");
                 breakfastCaloriesTotal = bundle.getDouble("Calories");
 //                editor.putString("breakfastCalories", String.valueOf(breakfastCaloriesTotal));
 //                editor.apply();
@@ -120,11 +127,13 @@ public class CaloriesFragmentTab extends Fragment {
                 breakfastCarbTotal = breakfastCarbTotal + bundle.getDouble("Carb");
                 breakfastFatTotal = breakfastFatTotal + bundle.getDouble("Fat");
 
+                lunchFoodName = bundle.getString("Lunch FoodName");
                 lunchCaloriesTotal = lunchCaloriesTotal + bundle.getDouble("Lunch Calories");
                 lunchProteinTotal = lunchProteinTotal + bundle.getDouble("Lunch Protein");
                 lunchCarbTotal = lunchCarbTotal + bundle.getDouble("Lunch Carb");
                 lunchFatTotal = lunchFatTotal + bundle.getDouble("Lunch Fat");
 
+                dinnerFoodName = bundle.getString("Dinner FoodName");
                 dinnerCaloriesTotal = dinnerCaloriesTotal + bundle.getDouble("Dinner Calories");
                 dinnerProteinTotal = dinnerProteinTotal + bundle.getDouble("Dinner Protein");
                 dinnerCarbTotal = dinnerCarbTotal + bundle.getDouble("Dinner Carb");
@@ -164,16 +173,30 @@ public class CaloriesFragmentTab extends Fragment {
                 calculateMealCalories = Double.parseDouble(sharedPreferences.getString("calculateMealCalories", null));
 
             }
+            //if its already added then do not add to avoid self addition
+            if (!breakfastFoodName.equals(tempFoodName) /*|| lunchFoodName.equals(tempFoodName) || dinnerFoodName.equals(tempFoodName)*/) {
+                //calculate the total form breakfast,lunch and dinner
+                calculateMealCalories = calculateMealCalories + breakfastCaloriesTotal + lunchCaloriesTotal + dinnerCaloriesTotal;
+                calculateMealProtein = breakfastProteinTotal + lunchProteinTotal + dinnerProteinTotal;
+                calculateMealCarb = breakfastCarbTotal + lunchCarbTotal + dinnerCarbTotal;
+                calculateMealFat = breakfastFatTotal + lunchFatTotal + dinnerFatTotal;
 
-            //calculate the total form breakfast,lunch and dinner
-            calculateMealCalories = breakfastCaloriesTotal + lunchCaloriesTotal + dinnerCaloriesTotal;
-            calculateMealProtein = breakfastProteinTotal + lunchProteinTotal + dinnerProteinTotal;
-            calculateMealCarb = breakfastCarbTotal + lunchCarbTotal + dinnerCarbTotal;
-            calculateMealFat = breakfastFatTotal + lunchFatTotal + dinnerFatTotal;
+                editor.putString("calculateMealCalories", String.valueOf(calculateMealCalories));
+                editor.apply();
 
-            editor.putString("calculateMealCalories", String.valueOf(calculateMealCalories));
-            editor.apply();
-
+                //adding the food to temp to check for later
+                if (!breakfastFoodName.equals(tempFoodName)){
+                    tempFoodName = breakfastFoodName;
+                }
+                else if (!lunchFoodName.equals(tempFoodName)){
+                    tempFoodName = lunchFoodName;
+                }
+                else if (!dinnerFoodName.equals(tempFoodName)){
+                    tempFoodName = dinnerFoodName;
+                }
+            } else {
+                Toast.makeText(getActivity(), "Already added!", Toast.LENGTH_SHORT).show();
+            }
 //            calculateMealCalories = Double.parseDouble(sharedPreferences.getString("calculateMealCalories", "No name defined"));
 
             totalCalorieFiguresTextView.setText(String.valueOf(calculateMealCalories));

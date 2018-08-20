@@ -3,6 +3,7 @@ package com.turkishlegacy.nutritionfactsmobile;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -41,9 +42,13 @@ public class DiaryFragment extends Fragment implements ViewPager.OnPageChangeLis
     protected View mView;
 
     ListView listView;
+    Main main;
 
     TabsCustomListViewAdaptor adaptor;
     ArrayList<AllFoodsinTabs> allFoodsList;
+
+    SharedPreferences sharedPreferences = null;
+    SharedPreferences.Editor editor = null;
 
     // fake content for tabhost to ensure real content which the view pager will be shown
     private class FakeContent implements TabHost.TabContentFactory {
@@ -78,6 +83,8 @@ public class DiaryFragment extends Fragment implements ViewPager.OnPageChangeLis
         //actionbar title change
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Diary");
 
+        main = (Main) getActivity();
+
 //
 //        listView = view.findViewById(R.id.listView);
 //
@@ -91,55 +98,100 @@ public class DiaryFragment extends Fragment implements ViewPager.OnPageChangeLis
     }
 
     //inflating the menu on action bar within fragment
-//    @Override
-//    public void onCreateOptionsMenu(
-//            Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.diary_menu, menu);
-//    }
-//
-//    //action bar button options
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            //when add button is selected it adds the values from each list view item and sends to Calories fragment
-//            case R.id.diaryActionBarItem:
-//
-//                //confirm
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//
-//                builder.setTitle("Confirmation");
-//                builder.setMessage("Are you sure you want to clear all meals?");
-//
-//                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                        Clear clear = new Clear();
-//                        clear.clearAll(allFoodsList, listView, adaptor);
-//                        dialog.dismiss();
-//
-//                        Toast.makeText(getActivity(), "Cleared!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
-//                AlertDialog alert = builder.create();
-//                alert.show();
-//
-//
-//                return true;
-//
-//            default:
-//                // If we got here, the user's action was not recognized.
-//                // Invoke the superclass to handle it.
-//                return super.onOptionsItemSelected(item);
-//
-//        }
-//    }
+    @Override
+    public void onCreateOptionsMenu(
+            Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.diary_menu, menu);
+    }
+
+    //action bar button options
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            //when add button is selected it adds the values from each list view item and sends to Calories fragment
+            case R.id.diaryActionBarItem:
+
+                //confirm
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setTitle("Confirmation");
+                builder.setMessage("Are you sure you want to clear all meals?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+
+//                        editor.clear();
+//                        editor.commit();
+//                        allFoodsList = new ArrayList<>();
+//                        adaptor = new TabsCustomListViewAdaptor(getActivity(), allFoodsList);
+//                        allFoodsList.clear();
+
+                        main.setBreakfastFoodName("");
+                        main.setBreakfastFoodQuantity("");
+                        main.setBreakfastFoodCalories("");
+                        main.setBreakfastFoodProtein("");
+                        main.setBreakfastFoodFat("");
+                        main.setBreakfastFoodCarb("");
+
+                        main.setLunchFoodName("");
+                        main.setLunchFoodQuantity("");
+                        main.setLunchFoodCalories("");
+                        main.setLunchFoodProtein("");
+                        main.setLunchFoodFat("");
+                        main.setLunchFoodCarb("");
+
+                        main.setDinnerFoodName("");
+                        main.setDinnerFoodQuantity("");
+                        main.setDinnerFoodCalories("");
+                        main.setDinnerFoodProtein("");
+                        main.setDinnerFoodFat("");
+                        main.setDinnerFoodCarb("");
+
+                        //clear intent extras
+                        getActivity().getIntent().removeExtra("Calories");
+                        getActivity().getIntent().removeExtra("Protein");
+                        getActivity().getIntent().removeExtra("Carb");
+                        getActivity().getIntent().removeExtra("Fat");
+
+                        getActivity().getIntent().removeExtra("Lunch Calories");
+                        getActivity().getIntent().removeExtra("Lunch Protein");
+                        getActivity().getIntent().removeExtra("Lunch Carb");
+                        getActivity().getIntent().removeExtra("Lunch Fat");
+
+                        getActivity().getIntent().removeExtra("Dinner Calories");
+                        getActivity().getIntent().removeExtra("Dinner Protein");
+                        getActivity().getIntent().removeExtra("Dinner Carb");
+                        getActivity().getIntent().removeExtra("Dinner Fat");
+
+                        getActivity().getIntent().removeExtra("list");
+                        getActivity().getIntent().removeExtra("lunch list");
+                        getActivity().getIntent().removeExtra("dinner list");
+
+                        dialog.dismiss();
+
+                        Toast.makeText(getActivity(), "Cleared!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 
     private void InitializeViewPager() {
         //initialising viewpager

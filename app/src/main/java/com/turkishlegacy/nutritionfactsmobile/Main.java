@@ -165,6 +165,16 @@ public class Main extends AppCompatActivity
 
 
         }
+        else if (id == R.id.nav_BodyMeasurement) {
+
+            //opens the add food Fragment
+            BodyMeasurement bodyMeasurement = new BodyMeasurement();
+            FragmentManager manager = getSupportFragmentManager();
+            //replacing the fragment inside the layout
+            manager.beginTransaction().replace(R.id.content_layout, bodyMeasurement).addToBackStack(null).commit();
+
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -343,6 +353,9 @@ public class Main extends AppCompatActivity
     public Boolean getIsDinner() {
         return this.isDinner;
     }
+
+    //////////////////////////////////////////////////////////////////
+
 
 ///////////////////////////////////////////////////////////
 //    //getters and setters
